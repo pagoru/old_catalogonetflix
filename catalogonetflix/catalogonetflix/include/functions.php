@@ -1,5 +1,6 @@
 <?php
 
+define("WEB", "http://darkaqua.net/dev/catalogonetflix/");
 
 function getAbecedario(){
 	$j = 0;
@@ -37,6 +38,7 @@ function getFilms(){
 			$fil 	= simplexml_load_file("info/films/".$fi);
 			
 			$title 	=  $fil->title;
+			$img 	=  $fil->image;
 			$cover 	=  $fil->netflix[0]->attributes()->cover;
 			$src	=  $fil->netflix[0]->attributes()->src;
 			
@@ -49,6 +51,7 @@ function getFilms(){
 					
 					$film[$abc->indice]->film[$film[$abc->indice]->indice] = new stdClass();
 					$film[$abc->indice]->film[$film[$abc->indice]->indice]->title = $title;
+					$film[$abc->indice]->film[$film[$abc->indice]->indice]->image = $img;
 					$film[$abc->indice]->film[$film[$abc->indice]->indice]->cover = $cover;
 					$film[$abc->indice]->film[$film[$abc->indice]->indice]->src = $src;
 					
@@ -64,6 +67,7 @@ function getFilms(){
 				
 				$film[26]->film[$film[26]->indice] = new stdClass();
 				$film[26]->film[$film[26]->indice]->title = $title;
+				$film[26]->film[$film[26]->indice]->image = $img;
 				$film[26]->film[$film[26]->indice]->cover = $cover;
 				$film[26]->film[$film[26]->indice]->src = $src;
 				
@@ -76,6 +80,32 @@ function getFilms(){
 	}
 	
 	return $film;
+}
+
+function getSingleFilm($filmName){
+
+	$fil 	= simplexml_load_file("info/films/".$filmName.".xml");
+				
+	$film->title 	=  $fil->title;
+	$img 	=  $fil->image;
+	$cover 	=  $fil->netflix[0]->attributes()->cover;
+	$src	=  $fil->netflix[0]->attributes()->src;
+		
+	$inicial = substr($title, 0, 1);
+	
+
+	return $film;
+}
+
+function replaceSpace($name){
+	
+	return str_replace(" ", "-", $name);
+}
+
+function replaceDashToSpace($name){
+	
+	return str_replace("-", " ", $name);
+	
 }
 
 ?>

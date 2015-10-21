@@ -4,11 +4,19 @@ ini_set("display_errors", true);
 
 header('Content-Type: text/html; charset=ISO-8859-1');
 include 'include/functions.php';
+
+include 'include/head.php';
+
+$params = $_GET["params"];
+$p = explode("/", $params);
+
+if(!empty($p[1])){
+	echo replaceDashToSpace($p[1]);
+}
 ?>
-<?php include 'include/head.php'?>
 <html>
 	<body>
-	
+		
 		<?php include 'include/header.php'?>
 		
 		<div class="header-left" style="display: flex;justify-content: center;">
@@ -21,11 +29,13 @@ include 'include/functions.php';
 		</div>-->
 		
 		<div class="page">			
-			
-			<table>
-				
-			</table>
-			
+			Hola!
 		</div>
 	</body>
+	<script>
+	$( document ).ready(function() {
+	    console.log( "ready!" );
+	    
+	});
+	</script>
 </html>

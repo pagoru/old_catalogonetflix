@@ -26,6 +26,31 @@ tr{
 	height: 61px;
 }
 
+.td-covers{
+	padding-left: 40px;
+}
+
+.shadow-cover{
+	display: none; 
+	text-align: center; 
+	width: 341px; 
+	position: absolute; 
+	box-shadow: inset 0px -110px 45px -40px rgba(0,0,0,0.75); 
+	height: 192px;
+}
+
+.text-align-cover{
+	bottom: 0px; 
+	margin-top: 156px;
+}
+
+.title-cover{
+	font-size: 20px; 
+	bottom: 0px; 
+	font-weight: bold; 
+	letter-spacing: -1px;
+}
+
 .header-top {
 	position: fixed;
 	height: 60px;
