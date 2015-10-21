@@ -1,0 +1,11 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<film>
+	<title></title>
+	<netflix cover="" src="" />
+	<season number="" year="">
+		<episode number="" duration="">
+			<title></title>
+			<description></description>
+		</episode>
+	</season>
+</film>
