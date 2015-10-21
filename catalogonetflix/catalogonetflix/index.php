@@ -15,7 +15,7 @@ include 'include/functions.php';
 		<header class="header-top">
 			<div class="insideHeader">
 				<div class="logo-netflix" style="margin-right: 20px;"></div>
-				<div class="netflix-color"><a href="/peliculas">Películas</a></div>
+				<div class="netflix-color"><a href="/peliculas">Películas</a></div> 
 				<div class="netflix-color"><a href="/series">Series</a></div>
 			</div>
 		</header>
@@ -52,6 +52,9 @@ include 'include/functions.php';
 							
 							<tr>
 								<td style="padding-left: 40px;">
+									<div style="text-align: center; width: 341px; position: absolute; margin-top: 152px; background-color: rgba(0, 0, 0, 0.75); height: 40px; margin-top: 152px;">
+										<a style="font-size: 20px;"><?php echo $f->title;?></a>
+									</div>
 									<a href="<?php echo $f->src;?>">
 										<img src="<?php echo $f->cover;?>" />
 									</a>
