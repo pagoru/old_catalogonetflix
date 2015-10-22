@@ -11,8 +11,8 @@ $params = $_GET["params"];
 $p = explode("/", $params);
 
 if(!empty($p[0])){
-	$film = getSingleFilm(replaceDashToSpace($p[0]));
-	if($film->exist){
+	$serie = getSingleSerie(replaceDashToSpace($p[0]));
+	if($serie->exist){
 	
 	}
 }
@@ -37,30 +37,30 @@ if(!empty($p[0])){
 		<div class="page">			
 			
 			<table>
-				<?php foreach (getFilms() as $film): ?>
+				<?php foreach (getSeries() as $serie): ?>
 				
 					<tr>
 						<td>
-							<a  style="margin-top: -80px; position: absolute;" name="<?php echo $film->letra?>"></a>
-							<a class="font-abc-max"><?php echo $film->letra?></a>
+							<a  style="margin-top: -80px; position: absolute;" name="<?php echo $serie->letra?>"></a>
+							<a class="font-abc-max"><?php echo $serie->letra?></a>
 						</td>
 					</tr>
-						
-					<?php if(!empty($film->film)):?>
 					
+					<?php if(!empty($serie->serie)):?>
+						
 						<tr>
 							<td class="td-covers">
 					
-								<?php foreach ($film->film as $f):?>
+								<?php foreach ($serie->serie as $s):?>
 									
-									<a class="films-cover" href="<?php echo replaceSpace($f->title);?>/">
-										<div id="hover-<?php echo replaceSpace($f->title);?>">
-											<div id="<?php echo replaceSpace($f->title);?>" class="shadow-cover">
+									<a class="films-cover" href="<?php echo replaceSpace($s->title);?>/">
+										<div id="hover-<?php echo replaceSpace($s->title);?>">
+											<div id="<?php echo replaceSpace($s->title);?>" class="shadow-cover">
 												<div class="text-align-cover">
-													<div class="title-cover"><?php echo $f->title;?></div>
+													<div class="title-cover"><?php echo $s->title;?></div>
 												</div>
 											</div>
-											<img src="<?php echo $f->cover;?>" />
+											<img src="<?php echo $s->cover;?>" />
 										</div>
 									</a>
 									
@@ -79,16 +79,16 @@ if(!empty($p[0])){
 	<script>
 	$( document ).ready(function() {
 	    console.log( "ready!" );
-	    <?php foreach (getFilms() as $film): ?>
-	   		<?php if(!empty($film->film)):?>
-	   			<?php foreach ($film->film as $f):?>
+	    <?php foreach (getSeries() as $serie): ?>
+	   		<?php if(!empty($serie->serie)):?>
+	   			<?php foreach ($serie->serie as $s):?>
 
-		   			$( "#hover-<?php echo replaceSpace($f->title);?>" ).mouseenter(function() {
-						$( "#<?php echo replaceSpace($f->title);?>" ).fadeIn( 50, function() {
+		   			$( "#hover-<?php echo replaceSpace($s->title);?>" ).mouseenter(function() {
+						$( "#<?php echo replaceSpace($s->title);?>" ).fadeIn( 50, function() {
 							$(this).show();
 						});
 					}).mouseleave(function() {
-						$( "#<?php echo replaceSpace($f->title);?>" ).fadeOut( 50, function() {
+						$( "#<?php echo replaceSpace($s->title);?>" ).fadeOut( 50, function() {
 							$(this).hide();
 						});
 					});
@@ -103,10 +103,10 @@ if(!empty($p[0])){
 		<div style="padding-left: 20px;" class="page">
 			<div>
 				<div class="star" style="background: rgba(255, 255, 255, 0) url('<?php echo WEB;?>assets/logos/star.png') no-repeat scroll 0px 0px / 80px auto; ">
-					<div class="text-star"><?php echo $film->imdb->rating;?></div>
+					<div class="text-star"><?php echo $serie->imdb->rating;?></div>
 				</div>
-				<a target="_blank" href="<?php echo $film->src;?>">
-					<div id="hover-netflix" class="poster-films" style="background: transparent url('<?php echo $film->poster;?>') no-repeat scroll 50% 50% / auto 110%;">
+				<a target="_blank" href="<?php echo $serie->src;?>">
+					<div id="hover-netflix" class="poster-films" style="background: transparent url('<?php echo $serie->poster;?>') no-repeat scroll 50% 50% / auto 110%;">
 						<div id="netflix" class="see-netflix-shadow">
 							<div class="see-netflix">Ver en Netflix</div>
 						</div>
@@ -122,45 +122,45 @@ if(!empty($p[0])){
 						</thead>
 						<tr>
 							<td><a style="font-weight: 900;">Título: </a></td>
-							<td><a style="font-weight: 600;"><?php echo $film->title;?></a> <br /></td>
+							<td><a style="font-weight: 600;"><?php echo $serie->title;?></a> <br /></td>
 						</tr>
 						<tr>
 							<td><a style="font-weight: 900;">Año: </a></td>
-							<td><a style="font-weight: 600;"><?php echo $film->imdb->year;?></a> <br /></td>
+							<td><a style="font-weight: 600;"><?php echo $serie->imdb->year;?></a> <br /></td>
 						</tr>
 						<tr>
-							<td><a style="font-weight: 900;">Duración: </a></td>
-							<td><a style="font-weight: 600;"><?php echo $film->imdb->runtime;?></a> <br /></td>
+							<td><a style="font-weight: 900;">Duración episodios: </a></td>
+							<td><a style="font-weight: 600;"><?php echo $serie->imdb->runtime;?></a> <br /></td>
 						</tr>
 						<tr>
 							<td><a style="font-weight: 900;">País: </a></td>
-							<td><a style="font-weight: 600;"><?php echo $film->imdb->country;?></a> <br /></td>
+							<td><a style="font-weight: 600;"><?php echo $serie->imdb->country;?></a> <br /></td>
 						</tr>
 						<tr>
 							<td><a style="font-weight: 900;">Director: </a></td>
-							<td><a style="font-weight: 600;"><?php echo $film->imdb->director;?></a> <br /></td>
+							<td><a style="font-weight: 600;"><?php echo $serie->imdb->director;?></a> <br /></td>
 						</tr>
 						<tr>
 							<td><a style="font-weight: 900;">Reparto: </a></td>
-							<td><a style="font-weight: 600;"><?php echo $film->imdb->actors;?></a> <br /></td>
+							<td><a style="font-weight: 600;"><?php echo $serie->imdb->actors;?></a> <br /></td>
 						</tr>
 						<tr>
 							<td><a style="font-weight: 900;">Género: </a></td>
-							<td><a style="font-weight: 600;"><?php echo $film->imdb->genre;?></a> <br /></td>
+							<td><a style="font-weight: 600;"><?php echo $serie->imdb->genre;?></a> <br /></td>
 						</tr>
 						<tr>
 							<td><a style="font-weight: 900;">Sinopsis: </a></td>
-							<td><a style="font-weight: 600;"><?php echo $film->imdb->plot;?></a> <br /></td>
+							<td><a style="font-weight: 600;"><?php echo $serie->imdb->plot;?></a> <br /></td>
 						</tr>
 						<tr />
 						<tr>
 							<td><a style="font-weight: 900;">Disponible: </a></td>
-							<td><a style="font-weight: 600;"><?php echo $film->disponibility;?></a> <br /></td>
+							<td><a style="font-weight: 600;"><?php echo $serie->disponibility;?></a> <br /></td>
 						</tr>
 					</table>
 				</div>
 			</div>
-			<div class="background-films" style="background: transparent url('<?php echo $film->background;?>') no-repeat scroll 50% 50% / 100% auto;"></div>
+			<div class="background-films" style="background: transparent url('<?php echo $serie->background;?>') no-repeat scroll 50% 50% / 100% auto;"></div>
 		</div>
 	</body>
 	<script>

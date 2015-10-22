@@ -1,0 +1,14 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<film>
+	<title>Los 100</title>
+	<poster>http://4.bp.blogspot.com/-XwYA3sHESWg/U6WLxodDbsI/AAAAAAAAFVw/12pJtAdMS8c/s1600/Los_100_Serie_de_TV-674895049-large.jpg</poster>
+	<background>http://media.melty.es/pmedia-2612143-ajust_640-f1434651207/mas-de-ocho-meses-tendremos-que-esperar-para.jpg</background>
+	<imdb>tt2661044</imdb>
+	<netflix cover="http://cdn1.nflximg.net/images/4577/23354577.jpg" src="http://www.netflix.com/title/70283264" />
+	<season number="" year="">
+		<episode number="" duration="">
+			<title></title>
+			<description></description>
+		</episode>
+	</season>
+</film>

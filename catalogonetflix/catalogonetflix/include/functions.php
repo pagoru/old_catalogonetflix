@@ -18,6 +18,73 @@ function getAbecedario(){
 	return $letra;
 }
 
+function getSeries(){
+
+	$d = scandir("info/series");
+
+	$i = 0;
+	foreach (getAbecedario() as $ccc){
+
+		$serie[$ccc->indice] = new stdClass();
+		$serie[$ccc->indice]->letra  = $ccc->char;
+		$serie[$ccc->indice]->indice  = 0;
+
+	}
+
+	foreach($d as $fi){
+
+		if($fi != "test.xml" && strpos($fi, ".xml") !== false){
+				
+			//d
+				
+			$ser 	= simplexml_load_file("info/series/".$fi);
+
+			$title 	=  $ser->title;
+			$img 	=  $ser->background;
+			$cover 	=  $ser->netflix[0]->attributes()->cover;
+			$src	=  $ser->netflix[0]->attributes()->src;
+
+			$inicial = substr($title, 0, 1);
+
+			$bbc = false;
+			foreach (getAbecedario() as $abc){
+					
+				if($inicial == $abc->char){
+					
+					$serie[$abc->indice]->serie[$serie[$abc->indice]->indice] = new stdClass();
+					$serie[$abc->indice]->serie[$serie[$abc->indice]->indice]->title = $title;
+					$serie[$abc->indice]->serie[$serie[$abc->indice]->indice]->background = $img;
+					$serie[$abc->indice]->serie[$serie[$abc->indice]->indice]->cover = $cover;
+					$serie[$abc->indice]->serie[$serie[$abc->indice]->indice]->src = $src;
+
+					$bbc = true;
+					$serie[$abc->indice]->indice++;
+					break;
+
+				}
+					
+			}
+
+			if(!$bbc){
+					
+				$serie[26]->serie[$serie[26]->indice] = new stdClass();
+				$serie[26]->serie[$serie[26]->indice]->title = $title;
+				$serie[26]->serie[$serie[26]->indice]->background = $img;
+				$serie[26]->serie[$serie[26]->indice]->cover = $cover;
+				$serie[26]->serie[$serie[26]->indice]->src = $src;
+					
+				$serie[26]->indice++;
+					
+			}
+				
+		}
+
+	}
+
+	return $serie;
+
+}
+
 function getFilms(){
 	
 	$d = scandir("info/films");
@@ -82,6 +149,50 @@ function getFilms(){
 	return $film;
 }
 
+function getSingleSerie($serieName){
+
+	$path = "info/series/".$serieName.".xml";
+
+	$serie = new stdClass();
+
+	if(file_exists($path)){
+
+		$ser 	= simplexml_load_file($path);
+
+		$serie->exist = true;
+
+		$serie->title 		= $ser->title;
+		$serie->background 	= $ser->background;
+		$serie->cover 		= $ser->netflix[0]->attributes()->cover;
+		$serie->src			= $ser->netflix[0]->attributes()->src;
+		$serie->poster 		= $ser->poster;
+		$serie->imdb 		= $ser->imdb;
+
+		if(!empty($ser->disponibility)){
+			$serie->disponibility= $ser->disponibility;
+		} else {
+			$serie->disponibility= "20 Octubre 2015";
+		}
+
+		$sser = json_decode(file_get_contents("http://www.omdbapi.com/?i=".$serie->imdb));
+		
+		$serie->imdb = new stdClass();
+		$serie->imdb->year = $sser->Released;
+		$serie->imdb->runtime = $sser->Runtime;
+		$serie->imdb->country = $sser->Country;
+		$serie->imdb->director = $sser->Director;
+		$serie->imdb->actors = $sser->Actors;
+		$serie->imdb->genre = $sser->Genre;
+		$serie->imdb->plot = $sser->Plot;
+		$serie->imdb->rating = $sser->imdbRating;
+
+	} else {
+		$serie->exist = false;
+	}
+
+	return $serie;
+}
+
 function getSingleFilm($filmName){
 
 	$path = "info/films/".$filmName.".xml";
@@ -110,7 +221,7 @@ function getSingleFilm($filmName){
 		$ffilm = json_decode(file_get_contents("http://www.omdbapi.com/?i=".$film->imdb));
 		
 		$film->imdb = new stdClass();
-		$film->imdb->year = $ffilm->Year;
+		$film->imdb->year = $ffilm->Released;
 		$film->imdb->runtime = $ffilm->Runtime;
 		$film->imdb->country = $ffilm->Country;
 		$film->imdb->director = $ffilm->Director;

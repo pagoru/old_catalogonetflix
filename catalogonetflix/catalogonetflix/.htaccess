@@ -3,8 +3,10 @@ RewriteEngine on
 RewriteCond %{REQUEST_FILENAME} !-d
 RewriteCond %{REQUEST_FILENAME}.php -f
 
-RewriteRule ^peliculas(.*) peliculas.php?params=$1 [L]
-RewriteRule ^series(.*) series.php?params=$1 [L]
+RewriteRule ^series/(.*) series.php?params=$1 [L]
+RewriteRule ^series(.*) series.php [L]
+RewriteRule ^peliculas/(.*) peliculas.php?params=$1 [L]
+RewriteRule ^peliculas(.*) peliculas.php [L]
 RewriteRule ^404(.*) 404.php [L]
 
 
