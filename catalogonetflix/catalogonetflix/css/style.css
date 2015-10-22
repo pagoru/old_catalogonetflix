@@ -30,6 +30,47 @@ tr{
 	padding-left: 40px;
 }
 
+.films tr {
+	height: 20px;
+}
+
+.films td{
+	padding-right: 10px;
+}
+
+.see-netflix-shadow{
+	height: 100%;
+	-webkit-box-shadow: inset 0px -60px 0px -19px rgba(255,255,255,1.0);
+	-moz-box-shadow: inset 0px -60px 0px -19px rgba(255,255,255,1.0);
+	box-shadow: inset 0px -60px 0px -19px rgba(255,255,255,1.0);
+	display: none;
+}
+
+.see-netflix{
+	position: absolute; 
+	margin-top: 260px; 
+	margin-left: 42px; 
+	font-weight: 900;
+}
+
+.star{
+	position: absolute; 
+	z-index: 2; 
+	height: 80px; 
+	width: 80px; 
+	margin-left: 32px; 
+	margin-top: 27px; 
+	transform: rotate(-18deg);
+}
+
+.text-star{
+	color: #E50914;
+	text-align: center;
+	display: block;
+	margin-top: 32px;
+	font-weight: 900;
+}
+
 .shadow-cover{
 	display: none; 
 	text-align: center; 
@@ -49,6 +90,7 @@ tr{
 	bottom: 0px; 
 	font-weight: bold; 
 	letter-spacing: -1px;
+	color: #FFF;
 }
 
 .header-top {
@@ -129,4 +171,45 @@ tr{
 	float: left;
 	padding-right: 100%;
 	padding-bottom: 10px;
+}
+
+.background-films{
+	-webkit-box-shadow: inset 300px 0px 110px -95px rgba(20,20,20,1);
+	-moz-box-shadow: inset 300px 0px 110px -95px rgba(20,20,20,1);
+	box-shadow: 300px 0px 110px -95px rgb(20, 20, 20) inset; 
+	height: 400px;
+	width: 80%;
+	-webkit-filter: blur(5px);
+	-moz-filter: blur(5px);
+	-o-filter: blur(5px);
+	-ms-filter: blur(5px);
+	filter: blur(5px);
+	margin-top: 10px; 
+	z-index: -1; 
+	position: absolute; 
+}
+
+.poster-films{
+	-webkit-box-shadow: 0px 0px 15px 0px rgba(0,0,0,0.75);
+	-moz-box-shadow: 0px 0px 15px 0px rgba(0,0,0,0.75);
+	box-shadow: 0px 0px 15px 0px rgba(0,0,0,0.75);
+	z-index: 1; 
+	margin-top: 65px; 
+	margin-left: 65px; 
+	position: absolute; 
+	height: 291px; 
+	width: 200px;
+}
+
+.text-films{
+	text-shadow: 0px 0px 5px rgb(0, 0, 0); 
+	position: absolute; 
+	margin-left: 285px; 
+	margin-top: 75px;
+}
+
+.films-cover{
+    float: left;
+    margin: 4px;
+
 }

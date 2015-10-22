@@ -1,5 +1,8 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <film>
 	<title>Aftershock</title>
+	<poster>http://www.fanslatino.com/wp-content/uploads/2014/06/Aftershock.jpg</poster>
+	<background>http://www.dypia.com/wp-content/uploads/2014/06/Aftershock-Movie.jpg</background>
+	<imdb>tt1780762</imdb>
 	<netflix cover="http://cdn1.nflximg.net/images/2943/9072943.jpg" src="http://www.netflix.com/title/70260374" />
 </film>
