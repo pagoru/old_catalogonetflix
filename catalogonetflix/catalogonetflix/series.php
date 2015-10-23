@@ -12,8 +12,8 @@ $p = explode("/", $params);
 
 if(!empty($p[0])){
 	$serie = getSingleSerie(replaceDashToSpace($p[0]));
-	if($serie->exist){
-	
+	if(!$serie->exist){
+		echo "<meta http-equiv='refresh' content='0; url=".WEB."404' />";
 	}
 }
 ?>
@@ -34,7 +34,7 @@ if(!empty($p[0])){
 			</div>
 		</div>
 		
-		<div class="page">			
+		<div class="page" style="padding-top: 60px;">			
 			
 			<table>
 				<?php foreach (getSeries() as $serie): ?>
@@ -98,7 +98,7 @@ if(!empty($p[0])){
 		<?php endforeach;?>
 	});
 	</script>
-<?php else:?>
+<?php elseif($serie->exist):?>
 	<body>
 		<div style="padding-left: 20px;" class="page">
 			<div>

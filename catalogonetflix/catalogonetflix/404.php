@@ -11,25 +11,36 @@ include 'include/functions.php';
 	
 		<?php include 'include/header.php'?>
 		
+		<div class="header-left" style="display: flex;justify-content: center;">
+			<div style="align-self: center;">
+			</div>
+		</div>
+		
 		<?php
 		
-		$error[0] = new stdClass();
-		$error[0]->ccc = "Erró 404";
-		$error[0]->text = "Tá confundío, po akí no eh.";
+		$error = new stdClass();
+		$error->ccc = array(	
+				"Erró 404", 
+				"Error 404", 
+				"Error 404 burlao",
+				"Error 404"
+		);
+		$error->text = array(	
+				"Tá confundío, po akí no eh.", 
+				"Si yo se que no ¿pero y si sí?",
+				"Tu mierda no nos gusta, es porque estamos burlaos.",
+				"¿Y la Europea?"
+		);
 		
-		$error[1] = new stdClass();
-		$error[1]->ccc = "Error 404";
-		$error[1]->text = "Si yo se que no ¿pero y si sí?";
 		
-		
-		$in = array_rand($error);
+		$in = array_rand($error->ccc);
 		?>
 		
 		<div class="page">			
 			
 			<div>
-				<a style="font-size: 40px; font-weight: 900;"><?php echo $error[$in]->ccc;?></a><br />
-				<?php echo $error[$in]->text;?>
+				<a style="font-size: 40px; font-weight: 900;"><?php echo $error->ccc[$in];?></a><br />
+				<?php echo $error->text[$in];?>
 			</div>
 			
 		</div>

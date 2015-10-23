@@ -12,17 +12,15 @@ $p = explode("/", $params);
 
 if(!empty($p[0])){
 	$film = getSingleFilm(replaceDashToSpace($p[0]));
-	if($film->exist){
-	
+	if(!$film->exist){
+		error404();
 	}
 }
 ?>
-<html>
+<html lang="es-es">
 <?php include 'include/header.php'?>
 <?php if(empty($p[0])):?>
 	<body>
-		
-		<?php include 'include/header.php'?>
 		
 		<div class="header-left" style="display: flex;justify-content: center;">
 			<div style="align-self: center;">
@@ -34,14 +32,14 @@ if(!empty($p[0])){
 			</div>
 		</div>
 		
-		<div class="page">			
+		<div class="page" style="padding-top: 60px;">			
 			
 			<table>
 				<?php foreach (getFilms() as $film): ?>
 				
 					<tr>
 						<td>
-							<a  style="margin-top: -80px; position: absolute;" name="<?php echo $film->letra?>"></a>
+							<a style="margin-top: -80px; position: absolute;" name="<?php echo $film->letra?>"></a>
 							<a class="font-abc-max"><?php echo $film->letra?></a>
 						</td>
 					</tr>
@@ -53,14 +51,14 @@ if(!empty($p[0])){
 					
 								<?php foreach ($film->film as $f):?>
 									
-									<a class="films-cover" href="<?php echo replaceSpace($f->title);?>/">
+									<a class="films-cover" href="<?php echo WEB."peliculas/".replaceSpace($f->title);?>/">
 										<div id="hover-<?php echo replaceSpace($f->title);?>">
 											<div id="<?php echo replaceSpace($f->title);?>" class="shadow-cover">
 												<div class="text-align-cover">
 													<div class="title-cover"><?php echo $f->title;?></div>
 												</div>
 											</div>
-											<img src="<?php echo $f->cover;?>" />
+											<img alt="<?php echo replaceSpace($f->title);?>" src="<?php echo $f->cover;?>" />
 										</div>
 									</a>
 									
@@ -96,11 +94,20 @@ if(!empty($p[0])){
 	   			<?php endforeach;?>
 			<?php endif;?>
 		<?php endforeach;?>
+
+		$( "#title" ).text("Películas - <?php echo NAME_WEB;?>");
+		$( "#name-title" ).text("Películas - <?php echo NAME_WEB;?>");
 	});
 	</script>
-<?php else:?>
+<?php elseif($film->exist):?>
 	<body>
-		<div style="padding-left: 20px;" class="page">
+	
+		<div class="header-left" style="display: flex;justify-content: center;">
+			<div style="align-self: center;">
+			</div>
+		</div>
+		
+		<div style="padding-top: 60px; padding-left: 60px;" class="page">
 			<div>
 				<div class="star" style="background: rgba(255, 255, 255, 0) url('<?php echo WEB;?>assets/logos/star.png') no-repeat scroll 0px 0px / 80px auto; ">
 					<div class="text-star"><?php echo $film->imdb->rating;?></div>
@@ -120,6 +127,18 @@ if(!empty($p[0])){
 								<th width="60%"></th>
 							</tr>
 						</thead>
+						<div class="hideText">
+							<header>
+								<h1><?php echo $film->title;?></h1>
+							</header>
+							<hgroup>
+								<h1><?php echo $film->imdb->country;?></h1>
+								<h1><?php echo $film->imdb->director;?></h1>
+								<h1><?php echo $film->imdb->actors;?></h1>
+								<h1><?php echo $film->imdb->genre;?></h1>
+								<h1><?php echo $film->imdb->plot;?></h1>
+							</hgroup>
+						</div>
 						<tr>
 							<td><a style="font-weight: 900;">Título: </a></td>
 							<td><a style="font-weight: 600;"><?php echo $film->title;?></a> <br /></td>
@@ -175,6 +194,9 @@ if(!empty($p[0])){
 				$(this).hide();
 			});
 		});
+
+	   	$( "#title" ).text("<?php echo $film->title;?> - Películas - <?php echo NAME_WEB;?>");
+	   	$( "#name-title" ).text("<?php echo $film->title;?> - Películas - <?php echo NAME_WEB;?>");
 	});
 	</script>
 <?php endif;?>
