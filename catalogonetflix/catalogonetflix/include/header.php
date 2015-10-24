@@ -1,7 +1,7 @@
-<header class="header-top">
+<div class="header-top">
 	<div class="insideHeader">
-		<a href="<?php echo WEB;?>"><div class="logo-netflix" style="margin-right: 20px;"></div></a>
-		<a href="<?php echo WEB;?>peliculas/"><div class="netflix-color">Películas</div></a> 
-		<a href="<?php echo WEB;?>series/"><div class="netflix-color">Series</div></a>
+		<a href="<?php echo WEB;?>"><div class="logo-netflix hideText" style="margin-right: 20px;" id="name-title"><?php echo NAME_WEB?></div></a>
+		<a href="<?php echo WEB;?>peliculas/"><div class="header-link netflix-color">Películas</div></a> 
+		<a href="<?php echo WEB;?>series/"><div class="header-link netflix-color">Series</div></a>
 	</div>
-</header>
+</div>

@@ -10,4 +10,4 @@ RewriteRule ^peliculas(.*) peliculas.php [L]
 RewriteRule ^404(.*) 404.php [L]
 
 
-ErrorDocument 404 http://darkaqua.net/dev/catalogonetflix/404
+ErrorDocument 404 http://catalogonetflix.es/404

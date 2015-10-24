@@ -1,0 +1,13 @@
+AddDefaultCharset utf-8
+RewriteEngine on
+RewriteCond %{REQUEST_FILENAME} !-d
+RewriteCond %{REQUEST_FILENAME}.php -f
+
+RewriteRule ^series/(.*) series.php?params=$1 [L]
+RewriteRule ^series(.*) series.php [L]
+RewriteRule ^peliculas/(.*) peliculas.php?params=$1 [L]
+RewriteRule ^peliculas(.*) peliculas.php [L]
+RewriteRule ^404(.*) 404.php [L]
+
+
+ErrorDocument 404 http://darkaqua.net/dev/catalogonetflix/404

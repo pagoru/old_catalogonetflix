@@ -1,19 +1,27 @@
 <?php
 
-define("WEB", "http://darkaqua.net/dev/catalogonetflix/");
+define("WEB", "http://www.catalogonetflix.es/");
+define("NAME_WEB", "Catálogo Netflix España");
+
+function error404(){
+	echo "<meta http-equiv='refresh' content='0; url=".WEB."404' />";
+}
 
 function getAbecedario(){
 	$j = 0;
+	
+	$letra[$j] = new stdClass();
+	$letra[$j]->char = "#";
+	$letra[$j]->indice = $j;
+	
+	$j++;
+	
 	for($i=65; $i<=90; $i++) {
 		$letra[$j] = new stdClass();
 		$letra[$j]->char = chr($i);
 		$letra[$j]->indice = $j;
 		$j++;
 	}
-	
-	$letra[$j] = new stdClass();
-	$letra[$j]->char = "#";
-	$letra[$j]->indice = $j;
 	
 	return $letra;
 }
@@ -48,7 +56,7 @@ function getSeries(){
 
 			$bbc = false;
 			foreach (getAbecedario() as $abc){
-					
+								
 				if($inicial == $abc->char){
 					
 					$serie[$abc->indice]->serie[$serie[$abc->indice]->indice] = new stdClass();
@@ -67,13 +75,13 @@ function getSeries(){
 
 			if(!$bbc){
 					
-				$serie[26]->serie[$serie[26]->indice] = new stdClass();
-				$serie[26]->serie[$serie[26]->indice]->title = $title;
-				$serie[26]->serie[$serie[26]->indice]->background = $img;
-				$serie[26]->serie[$serie[26]->indice]->cover = $cover;
-				$serie[26]->serie[$serie[26]->indice]->src = $src;
+				$serie[0]->serie[$serie[0]->indice] = new stdClass();
+				$serie[0]->serie[$serie[0]->indice]->title = $title;
+				$serie[0]->serie[$serie[0]->indice]->background = $img;
+				$serie[0]->serie[$serie[0]->indice]->cover = $cover;
+				$serie[0]->serie[$serie[0]->indice]->src = $src;
 					
-				$serie[26]->indice++;
+				$serie[0]->indice++;
 					
 			}
 				
@@ -104,7 +112,7 @@ function getFilms(){
 			
 			$fil 	= simplexml_load_file("info/films/".$fi);
 			
-			$title 	=  $fil->title;
+			$title 	=  limpiarChars($fil->title);
 			$img 	=  $fil->background;
 			$cover 	=  $fil->netflix[0]->attributes()->cover;
 			$src	=  $fil->netflix[0]->attributes()->src;
@@ -132,13 +140,13 @@ function getFilms(){
 			
 			if(!$bbc){
 				
-				$film[26]->film[$film[26]->indice] = new stdClass();
-				$film[26]->film[$film[26]->indice]->title = $title;
-				$film[26]->film[$film[26]->indice]->background = $img;
-				$film[26]->film[$film[26]->indice]->cover = $cover;
-				$film[26]->film[$film[26]->indice]->src = $src;
+				$film[0]->film[$film[0]->indice] = new stdClass();
+				$film[0]->film[$film[0]->indice]->title = $title;
+				$film[0]->film[$film[0]->indice]->background = $img;
+				$film[0]->film[$film[0]->indice]->cover = $cover;
+				$film[0]->film[$film[0]->indice]->src = $src;
 				
-				$film[26]->indice++;
+				$film[0]->indice++;
 				
 			}
 			
@@ -161,7 +169,7 @@ function getSingleSerie($serieName){
 
 		$serie->exist = true;
 
-		$serie->title 		= $ser->title;
+		$serie->title 		= limpiarChars($ser->title);
 		$serie->background 	= $ser->background;
 		$serie->cover 		= $ser->netflix[0]->attributes()->cover;
 		$serie->src			= $ser->netflix[0]->attributes()->src;
@@ -174,7 +182,7 @@ function getSingleSerie($serieName){
 			$serie->disponibility= "20 Octubre 2015";
 		}
 
-		$sser = json_decode(file_get_contents("http://www.omdbapi.com/?i=".$serie->imdb));
+		$sser = json_decode(utf8_decode(file_get_contents("http://www.omdbapi.com/?i=".$serie->imdb)));
 		
 		$serie->imdb = new stdClass();
 		$serie->imdb->year = $sser->Released;
@@ -187,6 +195,7 @@ function getSingleSerie($serieName){
 		$serie->imdb->rating = $sser->imdbRating;
 
 	} else {
+		
 		$serie->exist = false;
 	}
 
@@ -196,7 +205,7 @@ function getSingleSerie($serieName){
 function getSingleFilm($filmName){
 
 	$path = "info/films/".$filmName.".xml";
-	
+		
 	$film = new stdClass();
 	
 	if(file_exists($path)){
@@ -205,7 +214,7 @@ function getSingleFilm($filmName){
 		
 		$film->exist = true;
 		
-		$film->title 		= $fil->title;
+		$film->title 		= limpiarChars($fil->title);
 		$film->background 	= $fil->background;
 		$film->cover 		= $fil->netflix[0]->attributes()->cover;
 		$film->src			= $fil->netflix[0]->attributes()->src;
@@ -218,7 +227,7 @@ function getSingleFilm($filmName){
 			$film->disponibility= "20 Octubre 2015";
 		}
 		
-		$ffilm = json_decode(file_get_contents("http://www.omdbapi.com/?i=".$film->imdb));
+		$ffilm = json_decode(utf8_decode(file_get_contents("http://www.omdbapi.com/?i=".$film->imdb)));
 		
 		$film->imdb = new stdClass();
 		$film->imdb->year = $ffilm->Released;
@@ -244,13 +253,122 @@ function replaceSpaceReal($name){
 
 function replaceSpace($name){
 	
-	return str_replace(" ", "-", $name);
+	$name = str_replace(array(" ", ",", ":", "."), array("-", "__", "_", "--"), $name);
+	
+	return $name;
 }
 
 function replaceDashToSpace($name){
 	
-	return str_replace("-", " ", $name);
+	$name = str_replace(array("--", "-", "__", "_"), array(".", " ", ",", ""), $name);
+	
+	return $name;
 	
 }
+
+function limpiarChars($name){
+	
+	$name = str_replace(array("Ã±"), array("ñ"), $name);
+	
+	return $name;
+	
+}
+
+
+
+//Robados
+
+function getDesign(){
+	
+	$so = getOS();
+	
+	$so_desktop = array('Windows', "Mac", "linux", "Ubuntu");
+	
+	foreach($so_desktop as $perm){
+		
+		if(strpos($so, $perm) !== false){
+			return "D";
+		}
+		
+	}
+	
+	return "M";
+	
+}
+
+function getOS() {
+
+	$user_agent = $_SERVER['HTTP_USER_AGENT'];
+
+	$os_platform    =   "Unknown OS Platform";
+
+	$os_array       =   array(
+			'/windows nt 10/i'      =>  'Windows 10',
+			'/windows nt 6.3/i'     =>  'Windows 8.1',
+			'/windows nt 6.2/i'     =>  'Windows 8',
+			'/windows nt 6.1/i'     =>  'Windows 7',
+			'/windows nt 6.0/i'     =>  'Windows Vista',
+			'/windows nt 5.2/i'     =>  'Windows Server 2003/XP x64',
+			'/windows nt 5.1/i'     =>  'Windows XP',
+			'/windows xp/i'         =>  'Windows XP',
+			'/windows nt 5.0/i'     =>  'Windows 2000',
+			'/windows me/i'         =>  'Windows ME',
+			'/win98/i'              =>  'Windows 98',
+			'/win95/i'              =>  'Windows 95',
+			'/win16/i'              =>  'Windows 3.11',
+			'/macintosh|mac os x/i' =>  'Mac OS X',
+			'/mac_powerpc/i'        =>  'Mac OS 9',
+			'/linux/i'              =>  'Linux',
+			'/ubuntu/i'             =>  'Ubuntu',
+			'/iphone/i'             =>  'iPhone',
+			'/ipod/i'               =>  'iPod',
+			'/ipad/i'               =>  'iPad',
+			'/android/i'            =>  'Android',
+			'/blackberry/i'         =>  'BlackBerry',
+			'/webos/i'              =>  'Mobile'
+	);
+
+	foreach ($os_array as $regex => $value) {
+
+		if (preg_match($regex, $user_agent)) {
+			$os_platform    =   $value;
+		}
+
+	}
+
+	return $os_platform;
+
+}
+
+function getBrowser() {
+
+	$user_agent = $_SERVER['HTTP_USER_AGENT'];
+
+	$browser        =   "Unknown Browser";
+
+	$browser_array  =   array(
+			'/msie/i'       =>  'Internet Explorer',
+			'/firefox/i'    =>  'Firefox',
+			'/safari/i'     =>  'Safari',
+			'/chrome/i'     =>  'Chrome',
+			'/opera/i'      =>  'Opera',
+			'/netscape/i'   =>  'Netscape',
+			'/maxthon/i'    =>  'Maxthon',
+			'/konqueror/i'  =>  'Konqueror',
+			'/mobile/i'     =>  'Handheld Browser'
+	);
+
+	foreach ($browser_array as $regex => $value) {
+
+		if (preg_match($regex, $user_agent)) {
+			$browser    =   $value;
+		}
+
+	}
+
+	return $browser;
+
+}
+
 
 ?>
