@@ -4,4 +4,4 @@
 		<a href="<?php echo WEB;?>peliculas/"><div class="header-link netflix-color">Películas</div></a> 
 		<a href="<?php echo WEB;?>series/"><div class="header-link netflix-color">Series</div></a>
 	</div>
-</div>
+</div> 

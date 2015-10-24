@@ -369,6 +369,4 @@ function getBrowser() {
 	return $browser;
 
 }
-
-
 ?>
