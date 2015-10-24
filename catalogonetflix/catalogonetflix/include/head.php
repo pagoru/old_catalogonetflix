@@ -13,7 +13,7 @@
 	<meta property="og:image" content="<?php echo WEB?>assets/logos/catlogonetflix.png" />
 	<meta property="og:locale" content="es_ES" />
 	<meta property="og:site_name" content="Catálogo Netflix" />
-	<meta property="og:description" content="Web que muestra el Catálogo de Netflix España" />
+	<meta property="og:description" content="Catálogo Netflix España - Películas - Series" />
 	
 	<meta property="twitter:title" content="CatalogoNetflix" />
 	<meta property="twitter:description" content="">

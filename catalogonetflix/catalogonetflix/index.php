@@ -22,9 +22,12 @@ include 'include/functions.php';
 		
 		<div class="page">			
 			
-			<table>
-				
-			</table>
+			<div style="margin-left: 20px; margin-top: 20px;">
+				Estamos trabajando en la web! <br />
+				Siguenos en twitter y facebook para estar al día de las Últimas noticias.<br />
+				<a target="_blank" href="https://twitter.com/CatalogoNetflix">@catalogonetflix</a><br />
+				<a target="_blank" href="https://www.facebook.com/catalogonetflix">/catalogonetflix</a>
+			</div> 
 			
 		</div>
 	</body>
