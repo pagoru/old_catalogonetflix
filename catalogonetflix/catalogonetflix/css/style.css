@@ -27,7 +27,7 @@ tr{
 }
 
 .td-covers{
-	padding-left: 60px;
+	
 }
 
 .films{
@@ -49,8 +49,7 @@ tr{
 }
 
 .see-netflix-shadow{
-	box-shadow: 0px -60px 0px -19px #FFF inset;
-	display: none;
+	box-shadow: 0px -60px 20px -19px #FFF inset;
 	position: absolute;
 	z-index: 2;
 	margin-left: 60px;
@@ -142,7 +141,6 @@ a.darkaqua-color-text{
 .page {
     padding-top: 60px;
     padding-left: 60px;
-    display: table-cell;
 }
 
 .logo-netflix{
@@ -181,15 +179,18 @@ a.darkaqua-color-text{
 }
 
 .background-films{
-	-webkit-box-shadow: inset 0px 0px 200px 125px #000;
-	-moz-box-shadow: inset 30px 0px 200px 125px #000;
-	box-shadow: 0px 0px 200px 125px #000 inset; 
+	-webkit-box-shadow: inset 300px 0px 200px 25px #000;
+	-moz-box-shadow: inset 300px 0px 200px 25px #000;
+	box-shadow: 300px 0px 200px 25px #000 inset; 
 	height: 420px;
 	width: 100%;
 	z-index: 0; 
 	position: absolute; 
 	left: 0;
 	float: left;
+	background-size: 150% auto;
+	background-repeat: no-repeat;
+	background-position: 50% 50%;
 }
 
 .background-of-films{
@@ -209,7 +210,7 @@ a.darkaqua-color-text{
 
 footer {
     font-size: 6px;
-    margin: 60px;
+   	margin: 40px;
     padding-left: 60px;
 }
 
@@ -218,29 +219,58 @@ footer h1{
 }
 
 .poster-films{
-	-webkit-box-shadow: 0px 0px 15px 0px rgba(0,0,0,0.75);
-	-moz-box-shadow: 0px 0px 15px 0px rgba(0,0,0,0.75);
-	box-shadow: 0px 0px 15px 0px rgba(0,0,0,0.75);
+	-webkit-box-shadow: inset 300px 0px 200px 25px #000;
+	-moz-box-shadow: inset 300px 0px 200px 25px #000;
+	box-shadow: 300px 0px 200px 25px #000 inset; 
 	z-index: 1; 
 	margin-top: 60px; 
 	margin-left: 60px; 
 	position: absolute; 
-	height: 300px; 
+	height: 300px;  
 	width: 200px;
 }
 
-.text-films{
-	text-shadow: 0px 0px 5px rgb(0, 0, 0); 
-	position: absolute; 
-	margin-left: 285px; 
-	margin-top: 75px;
-	z-index: 1;
-}
+	.text-films {
+	    text-shadow: 0px 0px 5px #000;
+		z-index: 1;
+		position: absolute;
+		margin-left: 40px;
+		margin-top: 40px; 
+	}
 
 .films-cover{
     float: left;
     margin: 4px;
 	z-index: 2;
+}
+
+.film-page{
+	height: 480px;
+	padding-top: 60px; 
+	padding-left: 60px;
+	display: table-cell;
+}
+
+.red{
+	height: 40px; 
+	width: 40px; 
+	margin-left: -10px;
+	position: absolute;
+}
+
+.red-twitter{
+	bottom: 140px;
+	background: transparent url('../assets/logos/rs/twitter.png') no-repeat scroll 0px 0px / 40px 40px;
+}
+
+.red-facebook{
+	bottom: 190px;
+	background: transparent url('../assets/logos/rs/facebook.png') no-repeat scroll 0px 0px / 40px 40px;
+}
+
+.red-google-plus{
+	bottom: 90px;
+	background: transparent url('../assets/logos/rs/google-plus.png') no-repeat scroll 0px 0px / 40px 40px;
 }
 
 /*
@@ -267,6 +297,85 @@ footer h1{
 	font-weight: bold; 
 	letter-spacing: -1px;
 	color: #FFF;
+}
+
+h1, h2, h3, h4 {
+	margin: 0px;
+}
+
+li {
+    list-style-type: none;
+}
+
+ol {
+    margin: 0px;
+    padding: 0px;
+}
+
+/* FILMS INDIVIDUAL */
+
+.film-i-title{
+    font-weight: 700;
+    font-size: 28px;
+    letter-spacing: -1px;
+    margin-bottom: 10px;
+}
+
+.film-i-plot {
+    font-size: 14px;
+    color: #999;
+    float: left;
+    margin-top: 10px;
+}
+
+.film-i-info {
+    font-size: 10px;
+    font-weight: 600;
+    float: left;
+}
+
+.film-i-ver {
+	margin-top: 10px;
+    font-size: 10px;
+    font-weight: 600;
+    float: left;
+}
+
+.film-i-info-g {
+	color: #999;
+}
+
+.film li{
+	width: 250px;
+	margin-right: 100%;
+}
+
+.film-i-stars-up{
+	position: absolute; 
+	height: 10px; 
+	width: 50px; 
+}
+
+.film-i-stars{
+	height: 10px; 
+	width: 50px; 
+	background: transparent url('../assets/logos/star/stars-background.png') no-repeat scroll 0% 0% / 50px auto;
+}
+
+.film-i-year {
+    float: left;
+    color: #999;
+    font-size: 10px;
+    font-weight: 600;
+    margin-top: -2px;
+    margin-left: 10px;
+}
+
+.film-i-time {
+    float: left;
+    font-size: 10px;
+    font-weight: 600;
+    width: 100%;
 }
 
 /*
@@ -305,12 +414,6 @@ footer h1{
 		letter-spacing: -1px;
 		color: #FFF;
 	}
-}
-
-.film-page{
-	height: 480px; 
-	padding-top: 60px; 
-	padding-left: 60px;
 }
 
 /*
@@ -362,8 +465,6 @@ footer h1{
 	    z-index: 9;
 	}
 	.see-netflix-shadow {
-	    box-shadow: 0px -60px 0px -19px #FFF inset;
-	    display: none;
 	    position: absolute;
 	    z-index: 2;
 	    margin-left: 20px;
@@ -380,37 +481,38 @@ footer h1{
 	    font-size: 14px;
 	}
 	
-	.text-films {
-	    text-shadow: 0px 0px 5px #000;
-	    position: absolute;
-	    margin-left: 194px;
-	    margin-top: 20px;
-	    z-index: 1;
-	}
-	
 	.films{
 		font-size: 12px;
 		width: 100%;
 	}
 	
 	.background-films {
-	    box-shadow: 0px 0px 200px 125px #000 inset;
+	    box-shadow: 0px 0px 200px 25px #000 inset;
 	    height: 350px;
 	    width: 100%;
 	    z-index: 0;
 	    position: absolute;
 	    left: 0px;
 	    float: left;
+	    background-size: auto 150%;
+	    
+	    -webkit-filter: blur(5px);
+		-moz-filter: blur(5px);
+		-o-filter: blur(5px);
+		-ms-filter: blur(5px);
+		filter: blur(5px);
 	}
 	
 	.film-page{
-		height: 410px; 
-		padding-top: 60px; 
-		padding-left: 60px;
+		height: 410px;
 	}
 	
 	footer {
 	    font-size: 4px;
+	}
+	
+	.film li{
+		width: 400px;
 	}
 	
 }

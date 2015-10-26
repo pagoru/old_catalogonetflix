@@ -5,3 +5,10 @@
 		<a href="<?php echo WEB;?>series/"><div class="header-link netflix-color">Series</div></a>
 	</div>
 </div> 
+
+<div class="hideText">
+	<ol>
+		<li><a>Películas</a></li>
+		<li><a>Series</a></li>
+	</ol>
+</div>

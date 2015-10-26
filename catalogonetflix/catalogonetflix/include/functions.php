@@ -190,6 +190,7 @@ function getSingleSerie($serieName){
 		$serie->imdb->country = $sser->Country;
 		$serie->imdb->director = $sser->Director;
 		$serie->imdb->actors = $sser->Actors;
+		$serie->imdb->writer = $sser->Writer;
 		$serie->imdb->genre = $sser->Genre;
 		$serie->imdb->plot = $sser->Plot;
 		$serie->imdb->rating = $sser->imdbRating;
@@ -235,6 +236,7 @@ function getSingleFilm($filmName){
 		$film->imdb->country = $ffilm->Country;
 		$film->imdb->director = $ffilm->Director;
 		$film->imdb->actors = $ffilm->Actors;
+		$film->imdb->writer = $ffilm->Writer;
 		$film->imdb->genre = $ffilm->Genre;
 		$film->imdb->plot = $ffilm->Plot;
 		$film->imdb->rating = $ffilm->imdbRating;
