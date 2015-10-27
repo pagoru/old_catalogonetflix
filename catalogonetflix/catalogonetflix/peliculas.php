@@ -124,9 +124,13 @@ if(!empty($p[0])){
 				<div class="text-films" >
 					<img src="<?php echo $film->cover;?>" height="0" width="0" />
 					<div>
-						<h3 class="film-i-title" alt="Título"><?php echo $film->title;?></h3>
+						<a class="title-i" alt="<?php echo $film->title;?>" target="_blank" href="<?php echo $film->src;?>">
+							<h3 class="film-i-title" alt="<?php echo $film->title;?>"><?php echo $film->title;?></h3>
+							<div class="film-i-external"></div>
+						</a>
 						<ol class="film" title="<?php echo $film->title;?>">
 							<div>
+								<li class="film-i-ver"><a class="netflix-color-text">Disponible en Netflix desde:</a> <?php echo $film->disponibility;?></li>
 								<li style="width: 50px; float: left; margin-right: 0px;">
 									<div class="hideText film-i-stars-up" style="background: transparent url('/assets/logos/star/stars-<?php echo round($film->imdb->rating);?>.png') no-repeat scroll 0% 0% / 50px auto;"><?php echo $film->imdb->rating;?></div>
 									<div itemprop="ratingValue" class="hideText film-i-stars"><?php echo $film->imdb->rating;?></div>
@@ -142,8 +146,6 @@ if(!empty($p[0])){
 							<li class="film-i-info"><a class="film-i-info-g">Escrito por:</a> <?php echo $film->imdb->writer;?></li>
 							<li class="film-i-info"><a class="film-i-info-g">Protagonizada por:</a> <?php echo $film->imdb->actors;?></li>
 							
-							<li class="film-i-ver"><a class="netflix-color-text">Disponible en Netflix desde:</a> <?php echo $film->disponibility;?></li>
-							<li class="film-i-info"><a target="_blank" href="<?php echo $film->src;?>" class="netflix-color-text">Ver en Netflix</a></li>
 						</ol>
 					
 					</div>

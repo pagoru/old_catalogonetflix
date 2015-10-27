@@ -230,13 +230,13 @@ footer h1{
 	width: 200px;
 }
 
-	.text-films {
-	    text-shadow: 0px 0px 5px #000;
-		z-index: 1;
-		position: absolute;
-		margin-left: 40px;
-		margin-top: 40px; 
-	}
+.text-films {
+    text-shadow: 0px 0px 5px #000;
+	z-index: 1;
+	position: absolute;
+	margin-left: 40px;
+	margin-top: 40px; 
+}
 
 .films-cover{
     float: left;
@@ -314,11 +314,27 @@ ol {
 
 /* FILMS INDIVIDUAL */
 
+a.title-i:link, a.title-i:visited {
+    color: #FFF;
+    display: table-cell;
+}
+
+.film-i-external{
+	
+	height: 10px; 
+	width: 10px; 
+	background: transparent url('/assets/logos/external_link.png') repeat scroll 0% 0% / 10px auto; 
+	float: left; 
+	margin-left: 10px; 
+	margin-top: 12px;
+	
+}
+
 .film-i-title{
     font-weight: 700;
     font-size: 28px;
     letter-spacing: -1px;
-    margin-bottom: 10px;
+    float: left;
 }
 
 .film-i-plot {
@@ -335,7 +351,7 @@ ol {
 }
 
 .film-i-ver {
-	margin-top: 10px;
+	margin-bottom: 10px;
     font-size: 10px;
     font-weight: 600;
     float: left;
@@ -487,7 +503,7 @@ ol {
 	}
 	
 	.background-films {
-	    box-shadow: 0px 0px 200px 25px #000 inset;
+	    box-shadow: 0px 0px 200px 100px #000 inset;
 	    height: 350px;
 	    width: 100%;
 	    z-index: 0;
