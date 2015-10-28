@@ -132,7 +132,7 @@ if(!empty($p[0])){
 							<div>
 								<li class="film-i-ver"><a class="netflix-color-text">Disponible en Netflix desde:</a> <?php echo $film->disponibility;?></li>
 								<li style="width: 50px; float: left; margin-right: 0px;">
-									<div class="hideText film-i-stars-up" style="background: transparent url('/assets/logos/star/stars-<?php echo round($film->imdb->rating);?>.png') no-repeat scroll 0% 0% / 50px auto;"><?php echo $film->imdb->rating;?></div>
+									<div class="hideText film-i-stars-up" style="width: <?php echo $film->imdb->rating * 5.;?>px;background: transparent url('/assets/logos/star/stars.png') no-repeat scroll 0% 0% / 50px auto;"><?php echo $film->imdb->rating;?></div>
 									<div itemprop="ratingValue" class="hideText film-i-stars"><?php echo $film->imdb->rating;?></div>
 								</li>
 								<li style="margin-right: 0px; width: 100px;" class="film-i-year"><?php echo $film->imdb->year;?></li>
@@ -166,3 +166,5 @@ if(!empty($p[0])){
 	</script>
 <?php endif;?>
 </html>
+
+<?php echo getCountFilmsSeries("films");?>

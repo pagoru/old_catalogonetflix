@@ -29,7 +29,7 @@ function getAbecedario(){
 function getSeries(){
 
 	$d = scandir("info/series");
-
+	
 	$i = 0;
 	foreach (getAbecedario() as $ccc){
 
@@ -91,6 +91,26 @@ function getSeries(){
 
 	return $serie;
 
+}
+
+function getCountFilmsSeries($type){
+	
+	$d = scandir("info/".$type);
+	
+	$i = 0;
+	
+	foreach($d as $fi){
+		
+		if($fi != "test.xml" && strpos($fi, ".xml") !== false){
+		
+			$i++;
+		
+		}
+		
+	}
+	
+	return $i;
+	
 }
 
 function getFilms(){
