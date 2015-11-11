@@ -195,7 +195,15 @@ function getSingleSerie($serieName){
 		$serie->src			= $ser->netflix[0]->attributes()->src;
 		$serie->poster 		= $ser->poster;
 		$serie->imdb 		= $ser->imdb;
-
+				
+		for ($i = 0; $i < count($ser->season); $i++) {
+			
+			$serie->season[$i] 				= new stdClass();
+			$serie->season[$i]->number 		= $ser->season[$i]->attributes()->number;
+			$serie->season[$i]->episodes 	= $ser->season[$i]->attributes()->episodes;
+			
+		}
+		
 		if(!empty($ser->disponibility)){
 			$serie->disponibility= $ser->disponibility;
 		} else {
@@ -266,6 +274,26 @@ function getSingleFilm($filmName){
 	}
 
 	return $film;
+}
+
+function getCoverFilm($filmName){
+	return "http://www.catalogonetflix.es/img/peliculas/cover/".$filmName;
+}
+function getPosterFilm($filmName){
+	return "http://www.catalogonetflix.es/img/peliculas/poster/".$filmName;
+}
+function getBackgroundFilm($filmName){
+	return "http://www.catalogonetflix.es/img/peliculas/background/".$filmName;
+}
+
+function getCoverSerie($filmName){
+	return "http://www.catalogonetflix.es/img/series/cover/".$filmName;
+}
+function getPosterSerie($filmName){
+	return "http://www.catalogonetflix.es/img/series/poster/".$filmName;
+}
+function getBackgroundSerie($filmName){
+	return "http://www.catalogonetflix.es/img/series/background/".$filmName;
 }
 
 function replaceSpaceReal($name){

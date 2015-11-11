@@ -69,7 +69,7 @@ if(!empty($p[0])){
 														<div class="title-cover"><?php echo $f->title;?></div>
 													</div>
 												</div>
-												<img class="cover-films-net"  alt="<?php echo replaceSpace($f->title);?>" src="<?php echo $f->cover;?>" />
+												<img class="cover-films-net"  alt="<?php echo replaceSpace($f->title);?>" src="<?php echo getCoverFilm(replaceSpace($f->title));?>" />
 											</div>
 										</a>
 										
@@ -130,6 +130,7 @@ if(!empty($p[0])){
 						</a>
 						<ol class="film" title="<?php echo $film->title;?>">
 							<div>
+								<a class="netflix-color-text" target="_blank" href="<?php echo $film->src;?>"><li style="margin-bottom: 0px;" class="film-i-ver">Ver en Netflix</li></a>
 								<li class="film-i-ver"><a class="netflix-color-text">Disponible en Netflix desde:</a> <?php echo $film->disponibility;?></li>
 								<li style="width: 50px; float: left; margin-right: 0px;">
 									<div class="hideText film-i-stars-up" style="width: <?php echo $film->imdb->rating * 5.;?>px;background: transparent url('/assets/logos/star/stars.png') no-repeat scroll 0% 0% / 50px auto;"><?php echo $film->imdb->rating;?></div>
@@ -151,7 +152,7 @@ if(!empty($p[0])){
 					</div>
 					
 				</div>
-			<div class="background-films" style="background-image: url('<?php echo $film->background;?>')"></div>
+			<div class="background-films" style="background-image: url('<?php echo getBackgroundFilm(replaceSpace($film->title));?>')"></div>
 		</div>
 		<div class="footer"><?php include 'include/footer.php';?></div>
 	</body>

@@ -5,10 +5,5 @@
 	<background></background>
 	<imdb></imdb>
 	<netflix cover="" src="" />
-	<season number="" year="">
-		<episode number="" duration="">
-			<title></title>
-			<description></description>
-		</episode>
-	</season>
+	<season number="" episodes="" />
 </film>
