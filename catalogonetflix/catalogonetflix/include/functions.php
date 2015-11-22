@@ -47,7 +47,7 @@ function getSeries(){
 				
 			$ser 	= simplexml_load_file("info/series/".$fi);
 
-			$title 	=  $ser->title;
+			$title 	=  limpiarChars($ser->title);
 			$img 	=  $ser->background;
 			$cover 	=  $ser->netflix[0]->attributes()->cover;
 			$src	=  $ser->netflix[0]->attributes()->src;
@@ -210,7 +210,7 @@ function getSingleSerie($serieName){
 			$serie->disponibility= "20 Octubre 2015";
 		}
 
-		$sser = json_decode(utf8_decode(file_get_contents("http://www.omdbapi.com/?i=".$serie->imdb)));
+		$sser = json_decode(utf8_decode(file_get_contents("http://www.omdbapi.com/?i=".$serie->imdb."&plot=short&r=json")));
 		
 		$serie->imdb = new stdClass();
 		$serie->imdb->year = $sser->Released;
@@ -249,14 +249,14 @@ function getSingleFilm($filmName){
 		$film->src			= $fil->netflix[0]->attributes()->src;
 		$film->poster 		= $fil->poster;
 		$film->imdb 		= $fil->imdb;
-		
+				
 		if(!empty($fil->disponibility)){
 			$film->disponibility= $fil->disponibility;
 		} else {
 			$film->disponibility= "20 Octubre 2015";
 		}
 		
-		$ffilm = json_decode(utf8_decode(file_get_contents("http://www.omdbapi.com/?i=".$film->imdb)));
+		$ffilm = json_decode(utf8_decode(file_get_contents("http://www.omdbapi.com/?i=".$film->imdb."&plot=short&r=json")));
 		
 		$film->imdb = new stdClass();
 		$film->imdb->year = $ffilm->Released;

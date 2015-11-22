@@ -35,19 +35,36 @@ if($p[0] == "peliculas"){
 }
 
 function getImageFrom($remote_file){
-
-	$headers = get_headers($remote_file, 1);
-
-	switch ($headers['Content-Type']){
-
-		case 'image/jpeg':
-			return imagecreatefromjpeg($remote_file);
-		case 'image/gif':
-			return imagecreatefromgif($remote_file);
-		case 'image/png':
-			return imagecreatefrompng($remote_file);
-		default:
-			return null;
+	
+	if($remote_file == ""){
+		$default = "http://www.catalogonetflix.es/assets/logos/rs/card-twitter.png";
+		$headers = get_headers($default, 1);
+		
+		switch ($headers['Content-Type']){
+		
+			case 'image/jpeg':
+				return imagecreatefromjpeg($default);
+			case 'image/gif':
+				return imagecreatefromgif($default);
+			case 'image/png':
+				return imagecreatefrompng($default);
+			default:
+				return null;
+		}
+	} else {
+		$headers = get_headers($remote_file, 1);
+		
+		switch ($headers['Content-Type']){
+		
+			case 'image/jpeg':
+				return imagecreatefromjpeg($remote_file);
+			case 'image/gif':
+				return imagecreatefromgif($remote_file);
+			case 'image/png':
+				return imagecreatefrompng($remote_file);
+			default:
+				return null;
+		}
 	}
 
 }

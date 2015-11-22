@@ -7,6 +7,13 @@
 	<script src="https://ajax.googleapis.com/ajax/libs/jquery/2.1.3/jquery.min.js"></script>
 	
 	<meta name="description" content="El catálogo completo de Netflix España de forma pública con toda la información sobre las nuevas peliculas y series que se añadirán a netflix." />
+	<meta name="keywords" content="
+	
+		netflix, netflix españa, catalogo netflix, catalogo netflix españa, ver peliculas netflix, peliculas netflix, ver series netflix, series netflix, series, catalogo completo netflix,
+		ver peliculas online, ver series online, peliculas online, series online
+		
+	"/>
+	
 	<meta property="og:title" content="Catlálogo Netflix España" />
 	<meta property="og:type" content="website" />
 	<meta property="og:url" content="<?php echo WEB;?>" />

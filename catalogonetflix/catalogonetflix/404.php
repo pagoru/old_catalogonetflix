@@ -23,13 +23,15 @@ include 'include/functions.php';
 				"Erró 404", 
 				"Error 404", 
 				"Error 404 burlao",
-				"Error 404"
+				"Error 404",
+				"Roger 404"
 		);
 		$error->text = array(	
 				"Tá confundío, po akí no eh.", 
 				"Si yo se que no ¿pero y si sí?",
 				"Tu mierda no nos gusta, es porque estamos burlaos.",
-				"¿Y la Europea?"
+				"¿Y la Europea?",
+				"Roger, Roger"
 		);
 		
 		
@@ -38,7 +40,7 @@ include 'include/functions.php';
 		
 		<div class="page">			
 			
-			<div>
+			<div style="margin: 16px;">
 				<a style="font-size: 40px; font-weight: 900;"><?php echo $error->ccc[$in];?></a><br />
 				<?php echo $error->text[$in];?>
 			</div>
