@@ -31,8 +31,6 @@ include 'include/functions.php';
 						<div class="post-titulo"><?php echo $post->title;?></div>
 						<div class="post-fecha"><?php echo $post->date;?></div>
 						<div class="post-text">
-							Estos són los últimos estrenos en Netflix España: <br />
-							
 							<?php if(!empty($post->films)):?>
 								<div class="post-subtitulo">Últimas películas añadidas...</div>
 								<div class="post-add">

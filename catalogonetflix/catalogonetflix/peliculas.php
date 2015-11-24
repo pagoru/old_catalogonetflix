@@ -48,17 +48,17 @@ if(!empty($p[0])){
 			<div class="page" style="padding-top: 60px;">		
 				<table>
 					<?php foreach (getFilms() as $film): ?>
-					
-						<tr>
-							<td id="outside-<?php echo $film->letra;?>" style="cursor: pointer; background-color: #000;">
-								<a class="abc-position" name="<?php echo $film->letra?>"></a>
-								<a class="font-abc-max"><?php echo $film->letra?></a>
-							</td>
-						</tr>
-							
+												
 						<?php if(!empty($film->film)):?>
 						
-							<tr id="inside-<?php echo $film->letra;?>" class="insideFilms" style="display: none; padding-left: 20px;">
+							<tr>
+								<td id="outside-<?php if($film->letra != "#"){echo $film->letra;} else { echo "0";}?>" class="font-td">
+									<a class="abc-position" name="<?php echo $film->letra?>"></a>
+									<a class="font-abc-max"><?php echo $film->letra?></a>
+								</td>
+							</tr>
+						
+							<tr id="inside-<?php if($film->letra != "#"){echo $film->letra;} else { echo "0";}?>" class="insideFilms"  style="padding-left: 20px; background-color: #000;">
 								<td class="td-covers">
 									<?php foreach ($film->film as $f):?>
 										
@@ -91,8 +91,8 @@ if(!empty($p[0])){
 	$( document ).ready(function() {
 	    console.log( "ready!" );
 	    <?php foreach (getFilms() as $film): ?>
-			$("#outside-<?php echo $film->letra;?>").click(function () {
-				$("#inside-<?php echo $film-letra;?>").toggle(display);
+		    $("#outside-<?php if($film->letra != "#"){echo $film->letra;} else { echo "0";}?>").click(function (e) {
+				$("#inside-<?php if($film->letra != "#"){echo $film->letra;} else { echo "0";}?>").toggle();
 			});
 	   		<?php if(!empty($film->film)):?>
 	   			<?php foreach ($film->film as $f):?>

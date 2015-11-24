@@ -22,7 +22,7 @@
 	<meta property="og:site_name" content="Catálogo Netflix" />
 	<meta property="og:description" content="El catálogo completo de Netflix España de forma pública con toda la información sobre las nuevas peliculas y series que se añadirán a netflix." />
 	
-	<meta name="viewport" content="width=540, user-scalable=no">
+	<meta name="viewport" content="width=320, user-scalable=no">
 	
 	<link rel="apple-touch-icon" href="<?php echo WEB;?>assets/logos/touch-icon-iphone.png">
 	

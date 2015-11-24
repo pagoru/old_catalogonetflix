@@ -49,14 +49,14 @@ if(!empty($p[0])){
 				<table>
 					<?php foreach (getSeries() as $film): ?>
 					
-						<tr>
-							<td id="outside-<?php if($film->letra != "#"){echo $film->letra;} else { echo "0";}?>" style="cursor: pointer;background-color: #000;">
-								<a class="abc-position" name="<?php echo $film->letra?>"></a>
-								<a class="font-abc-max"><?php echo $film->letra?></a>
-							</td>
-						</tr>
-							
 						<?php if(!empty($film->serie)):?>
+						
+							<tr>
+								<td id="outside-<?php if($film->letra != "#"){echo $film->letra;} else { echo "0";}?>" class="font-td">
+									<a class="abc-position" name="<?php echo $film->letra?>"></a>
+									<a class="font-abc-max"><?php echo $film->letra?></a>
+								</td>
+							</tr>
 						
 							<tr id="inside-<?php if($film->letra != "#"){echo $film->letra;} else { echo "0";}?>" class="insideFilms"  style="padding-left: 20px; background-color: #000;">
 								<td class="td-covers">
@@ -94,7 +94,7 @@ if(!empty($p[0])){
 		    $("#outside-<?php if($film->letra != "#"){echo $film->letra;} else { echo "0";}?>").click(function (e) {
 				$("#inside-<?php if($film->letra != "#"){echo $film->letra;} else { echo "0";}?>").toggle();
 			});
-	   		<?php if(!empty($film->serie)):?>
+		    <?php if(!empty($film->serie)):?>
 	   			<?php foreach ($film->serie as $f):?>
 
 		   			$( "#hover-<?php echo replaceSpace($f->title);?>" ).mouseenter(function() {
@@ -175,5 +175,3 @@ if(!empty($p[0])){
 	</script>
 <?php endif;?>
 </html>
-
-<?php echo getCountFilmsSeries("series");?>
