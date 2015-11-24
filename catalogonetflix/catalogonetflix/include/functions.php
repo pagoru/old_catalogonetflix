@@ -324,6 +324,46 @@ function limpiarChars($name){
 	
 }
 
+//POSTS
+
+function loadSinglePost($fileName){
+	
+	$meses = array("Enero","Febrero","Marzo","Abril","Mayo","Junio","Julio","Agosto","Septiembre","Octubre","Noviembre","Diciembre");
+	
+	$path = "info/posts/".$fileName.".xml";
+	
+	$post = new stdClass();
+	
+	if(file_exists($path)){
+	
+		$poos 	= simplexml_load_file($path);
+				
+		$post->title = $poos->title;
+		$date = date_parse(substr($fileName, 0, 2)." ".substr($fileName, 2, 3)." 20".substr($fileName, 5, 2));
+		
+		$post->date = $date["day"]." de ".$meses[$date["month"] - 1]." del ".$date["year"];
+				
+		for ($i = 0; $i < count($poos->film); $i++) {
+			
+			$post->films[$i] = new stdClass();
+			$post->films[$i] = limpiarChars($poos->film[$i]);
+			
+		}
+		
+		for ($j = 0; $j < count($poos->serie); $j++) {
+				
+			$post->series[$j] = new stdClass();
+			$post->series[$j] = limpiarChars($poos->serie[$j]);
+				
+		}
+		
+		return $post;
+		
+	}
+	
+}
+
+// END POSTS
 
 
 //Robados
