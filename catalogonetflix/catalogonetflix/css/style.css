@@ -10,7 +10,7 @@ a:link, a:visited{
 }
 
 html, body{
-	background: #141414 none repeat scroll 0% 0%;
+	background: #2F2F2F none repeat scroll 0% 0%;
 	color: #FFF;
 	font-family: "Helvetica Neue",Helvetica,Arial,sans-serif;
 	margin: 0px;
@@ -20,6 +20,7 @@ html, body{
 td, tr, table, tbody{
 	margin: 0px;
 	padding: 0px;
+	border-collapse: collapse;
 }
 
 tr{
@@ -240,7 +241,7 @@ footer h1{
 
 .films-cover{
     float: left;
-    margin: 4px;
+    margin: 5px;
 	z-index: 2;
 }
 
@@ -394,32 +395,86 @@ a.title-i:link, a.title-i:visited {
 }
 
 /*
+ INDICE
+ 
+*/
+
+.margin-page{
+}
+.post{
+	background-color: #000;
+	padding-left: 40px;
+	padding-top: 8px;
+	padding-bottom: 8px;
+	margin-top: 40px;
+}
+.post-titulo{
+	color: #999;
+	font-weight: bold;
+	font-size: 20px;
+}
+.post-fecha{
+	font-size: 12px;
+	margin-bottom: 16px;
+}
+.post-text{
+	line-height: 24px;
+	font-size: 16px;
+	display: table-cell;
+}
+.post-subtitulo{
+	font-weight: bold;
+	float: left;
+	width: 100%;
+	width: 100%;
+	padding: 16px 0px;
+}
+.post-img{
+	height: 127px;
+}
+.post-img-div{
+	background-color: #141414;
+	display: table-cell;
+	width: 198px;
+}
+.post-img-name{
+	padding: 8px;
+	font-weight: 900;
+	font-size: 12px;
+	text-align: center;
+	line-height: 12px;
+}
+.post-img-ref{
+	display: table-cell;
+	float: left;
+	margin: 2px;
+}
+
+/*
 	Versión escritorio reducida
 */
 
 @media (max-width: 1300px){
 	.films-cover{
 	    float: left;
-	    margin: 4px;
+	    margin: 5px;
 		z-index: 2;
-		width: 230px;
-		height: 129.5px;
 	}
-   .cover-films-net{
-		height: 129.5px;
+  	.cover-films-net{
+		height: 148px;
 	}
   
-	.shadow-cover{
-		text-align: center;
-		width: 230px;
-		height: 129.5px;
-		position: absolute;
-		box-shadow: 0px -110px 45px -40px rgba(0, 0, 0, 0.75) inset;
+	.shadow-cover {
+	    text-align: center;
+	    width: 263px;
+		height: 148px;
+	    position: absolute;
+	    box-shadow: 0px -110px 45px -40px rgba(0, 0, 0, 0.75) inset;
 	}
 	
 	.text-align-cover{
 		bottom: 0px; 
-		margin-top: 56px;
+		margin-top: 64px;
 	}
 	
 	.title-cover{
@@ -435,6 +490,18 @@ a.title-i:link, a.title-i:visited {
 	Versión móvil
 */
 @media (max-width: 600px){
+	td, tr, table, tbody {
+	    width: 100%;
+	}
+	.post{
+		padding-right: 40px;
+	}
+	.insideHeader {
+	    margin-left: 40px;
+	}
+	.page {
+	    padding-left: 0px;
+	}
 	.header-top {
 	    position: fixed;
 	    height: 60px;
@@ -444,12 +511,9 @@ a.title-i:link, a.title-i:visited {
 	    display: block;
 	}
 	.header-link{
-		float:right;
-		font-size: 22px;
-		padding: 17px;
 	}
 	.logo-netflix{
-		margin-left: -60px;
+		
 	}
 	
 	.font-abc {
@@ -528,6 +592,17 @@ a.title-i:link, a.title-i:visited {
 	
 	.film li{
 		width: 400px;
+	}
+	
+	.logo-netflix {
+	    background: transparent url("/assets/logos/catalogonetflix.png") no-repeat scroll -91.5px 16px / 200px auto;
+	    height: 60px;
+	    width: 23px;
+	    float: left;
+	}
+	
+	.header-left{
+		display: none;
 	}
 	
 }

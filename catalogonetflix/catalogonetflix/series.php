@@ -36,10 +36,10 @@ if(!empty($p[0])){
 		<tbody>
 			<div class="header-left">
 				<?php foreach (getAbecedario() as $letra):?>
-						<a href="#<?php echo $letra->char;?>">
-							<div class="font-abc"><?php echo $letra->char;?></div>
-						</a>
-					<?php endforeach;?>
+					<a href="#<?php echo $letra->char;?>">
+						<div class="font-abc"><?php echo $letra->char;?></div>
+					</a>
+				<?php endforeach;?>
 				
 				<?php include 'include/redes.php';?>
 				
@@ -50,7 +50,7 @@ if(!empty($p[0])){
 					<?php foreach (getSeries() as $film): ?>
 					
 						<tr>
-							<td style="background-color: #000;">
+							<td id="outside-<?php if($film->letra != "#"){echo $film->letra;} else { echo "0";}?>" style="cursor: pointer;background-color: #000;">
 								<a class="abc-position" name="<?php echo $film->letra?>"></a>
 								<a class="font-abc-max"><?php echo $film->letra?></a>
 							</td>
@@ -58,7 +58,7 @@ if(!empty($p[0])){
 							
 						<?php if(!empty($film->serie)):?>
 						
-							<tr style="padding-left: 20px;">
+							<tr id="inside-<?php if($film->letra != "#"){echo $film->letra;} else { echo "0";}?>" class="insideFilms"  style="padding-left: 20px; background-color: #000;">
 								<td class="td-covers">
 									<?php foreach ($film->serie as $f):?>
 										
@@ -91,6 +91,9 @@ if(!empty($p[0])){
 	$( document ).ready(function() {
 	    console.log( "ready!" );
 	    <?php foreach (getSeries() as $film): ?>
+		    $("#outside-<?php if($film->letra != "#"){echo $film->letra;} else { echo "0";}?>").click(function (e) {
+				$("#inside-<?php if($film->letra != "#"){echo $film->letra;} else { echo "0";}?>").toggle();
+			});
 	   		<?php if(!empty($film->serie)):?>
 	   			<?php foreach ($film->serie as $f):?>
 

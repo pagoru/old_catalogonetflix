@@ -326,6 +326,32 @@ function limpiarChars($name){
 
 //POSTS
 
+function getLastPosts(){
+	
+	$d = scandir("info/posts");
+	
+	$i = 0;
+	foreach($d as $pos){
+	
+		if($pos != "test.xml" && strpos($pos, ".xml") !== false){
+			
+			$posts[$i] = loadSinglePost(str_replace(".xml", "", $pos));
+			$i++;
+			
+		}
+		
+	}
+	
+	function cmp($a, $b){
+		return strcmp($b->date, $a->date);
+	}
+	
+	usort($posts, "cmp");
+	
+	return $posts;
+	
+}
+
 function loadSinglePost($fileName){
 	
 	$meses = array("Enero","Febrero","Marzo","Abril","Mayo","Junio","Julio","Agosto","Septiembre","Octubre","Noviembre","Diciembre");
@@ -339,9 +365,9 @@ function loadSinglePost($fileName){
 		$poos 	= simplexml_load_file($path);
 				
 		$post->title = $poos->title;
-		$date = date_parse(substr($fileName, 0, 2)." ".substr($fileName, 2, 3)." 20".substr($fileName, 5, 2));
+		$post->dateClear = date_parse(substr($fileName, 0, 2)." ".substr($fileName, 2, 3)." 20".substr($fileName, 5, 2));
 		
-		$post->date = $date["day"]." de ".$meses[$date["month"] - 1]." del ".$date["year"];
+		$post->date = $post->dateClear["day"]." de ".$meses[$post->dateClear["month"] - 1]." del ".$post->dateClear["year"];
 				
 		for ($i = 0; $i < count($poos->film); $i++) {
 			
@@ -357,9 +383,9 @@ function loadSinglePost($fileName){
 				
 		}
 		
-		return $post;
-		
 	}
+	
+	return $post;
 	
 }
 
