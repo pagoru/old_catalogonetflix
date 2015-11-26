@@ -363,7 +363,8 @@ function loadSinglePost($fileName){
 	if(file_exists($path)){
 	
 		$poos 	= simplexml_load_file($path);
-				
+		
+		$post->originalTitle = $fileName;
 		$post->title = $poos->title;
 		$post->dateClear = date_parse(substr($fileName, 0, 2)." ".substr($fileName, 2, 3)." 20".substr($fileName, 5, 2));
 		

@@ -11,9 +11,10 @@ include 'include/functions.php';
 	
 		<?php include 'include/header.php'?>
 		
-		<div class="header-left" style="display: flex;justify-content: center;">
-			<div style="align-self: center;">
-			</div>
+		<div class="header-left" >
+			<a target="_blank" href="https://www.facebook.com/catalogonetflix"><div class="red red-facebook"></div></a>
+			<a target="_blank" href="https://www.twitter.com/catalogonetflix"><div class="red red-twitter"></div></a>
+			<a target="_blank" href="https://plus.google.com/106913105954399675256"><div class="red red-google-plus"></div></a>
 		</div>
 		
 		<?php
@@ -24,14 +25,22 @@ include 'include/functions.php';
 				"Error 404", 
 				"Error 404 burlao",
 				"Error 404",
-				"Roger 404"
+				"Roger 404",
+				"Error en Matrix 404",
+				"Error mágico 404",
+				"Solo en Casa 404",
+				"Batman 404"
 		);
 		$error->text = array(	
 				"Tá confundío, po akí no eh.", 
 				"Si yo se que no ¿pero y si sí?",
 				"Tu mierda no nos gusta, es porque estamos burlaos.",
 				"¿Y la Europea?",
-				"Roger, Roger"
+				"Roger, Roger",
+				"¿Pastilla azul o roja?",
+				"It's Leviosaaaaaa",
+				"Padres not found",
+				"Padres not found"
 		);
 		
 		
@@ -40,11 +49,12 @@ include 'include/functions.php';
 		
 		<div class="page">			
 			
-			<div style="margin: 16px;">
+			<div style="background-color: rgb(0, 0, 0); padding: 16px;">
 				<a style="font-size: 40px; font-weight: 900;"><?php echo $error->ccc[$in];?></a><br />
 				<?php echo $error->text[$in];?>
 			</div>
 			
 		</div>
+		<div class="footer"><?php include 'include/footer.php';?></div>
 	</body>
 </html>

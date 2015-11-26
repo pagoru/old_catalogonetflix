@@ -417,10 +417,8 @@ a.title-i:link, a.title-i:visited {
 }
 .post{
 	background-color: #000;
-	padding-left: 40px;
-	padding-top: 10px;
-	padding-bottom: 10px;
-	margin-top: 60px;
+	margin-top: 20px;
+	padding: 10px;
 }
 .post-titulo{
 	color: #999;
@@ -444,9 +442,9 @@ a.title-i:link, a.title-i:visited {
 }
 .post-img{
 	width: 300px;
+	margin: 5px;
 }
 .post-img-div{
-	background-color: #141414;
 	display: table-cell;
 	width: 198px;
 }
@@ -502,11 +500,11 @@ a.title-i:link, a.title-i:visited {
 	Versión móvil
 */
 @media (max-width: 640px){
+	.post-img{
+		margin: 10px 0px 0px 0px;
+	}
 	.insideFilms{
 		display: none;
-	}
-	.post{
-		padding: 10px;
 	}
 	.insideHeader {
 	    margin-left: 40px;

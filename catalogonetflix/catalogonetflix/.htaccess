@@ -11,4 +11,6 @@ RewriteRule ^img/(.*) img.php?params=$1 [L]
 RewriteRule ^_img/(.*) _img.php?params=$1 [L]
 RewriteRule ^404(.*) 404.php [L]
 
+RewriteRule ^actualizacion/(.*) index.php?page=true&params=$1 [L]
+
 ErrorDocument 404 http://catalogonetflix.es/404
