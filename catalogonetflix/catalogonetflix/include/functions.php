@@ -343,7 +343,7 @@ function getLastPosts(){
 	}
 	
 	function cmp($a, $b){
-		return strcmp($b->date, $a->date);
+		return strcmp($b->timestamp, $a->timestamp);
 	}
 	
 	usort($posts, "cmp");
@@ -369,7 +369,9 @@ function loadSinglePost($fileName){
 		$post->dateClear = date_parse(substr($fileName, 0, 2)." ".substr($fileName, 2, 3)." 20".substr($fileName, 5, 2));
 		
 		$post->date = $post->dateClear["day"]." de ".$meses[$post->dateClear["month"] - 1]." del ".$post->dateClear["year"];
-				
+		
+		$post->timestamp = date_timestamp_get(new DateTime($post->dateClear["year"]."-".$post->dateClear["month"]."-".$post->dateClear["day"]));
+		
 		for ($i = 0; $i < count($poos->film); $i++) {
 			
 			$post->films[$i] = new stdClass();
