@@ -69,7 +69,7 @@ if(!empty($p[0])){
 														<div class="title-cover"><?php echo $f->title;?></div>
 													</div>
 												</div>
-												<img class="cover-films-net"  alt="<?php echo replaceSpace($f->title);?>" src="<?php echo getCoverFilm(replaceSpace($f->title));?>" />
+												<img class="cover-films-net"  alt="<?php echo replaceSpace($f->title);?>" src="<?php echo $f->cover;?>" />
 											</div>
 										</a>
 										
@@ -116,6 +116,12 @@ if(!empty($p[0])){
 	});
 	</script>
 <?php elseif($film->exist):?>
+
+	<?php 
+		updateFilm($film);
+		incrementViewFilm($film->title);
+	?>
+
 	<body>
 	
 		<div class="header-left">

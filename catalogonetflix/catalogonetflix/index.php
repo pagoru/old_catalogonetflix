@@ -80,7 +80,14 @@ include 'include/functions.php';
 					?>
 					
 				<?php else:?>
-			
+					<div class="post">
+						Total de películas en Netflix España 
+						<a class="bold"><?php echo getCountFilmsSeries("films");?></a>.
+						<br />
+						Total de series en Netflix España 
+						<a class="bold"><?php echo getCountFilmsSeries("series")?></a>.
+					</div>
+					
 					<?php $posts = getLastPosts();?>
 					<?php for ($i = 0; $i < count($posts); $i++):?>
 						<?php $post = $posts[$i];?>

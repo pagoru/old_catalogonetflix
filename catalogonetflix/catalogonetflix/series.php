@@ -69,7 +69,7 @@ if(!empty($p[0])){
 														<div class="title-cover"><?php echo $f->title;?></div>
 													</div>
 												</div>
-												<img class="cover-films-net"  alt="<?php echo replaceSpace($f->title);?>" src="<?php echo getCoverSerie(replaceSpace($f->title));?>" />
+												<img class="cover-films-net"  alt="<?php echo replaceSpace($f->title);?>" src="<?php echo $f->cover;?>" />
 											</div>
 										</a>
 										

@@ -9,6 +9,9 @@ RewriteRule ^peliculas/(.*) peliculas.php?params=$1 [L]
 RewriteRule ^peliculas(.*) peliculas.php [L]
 RewriteRule ^img/(.*) img.php?params=$1 [L]
 RewriteRule ^_img/(.*) _img.php?params=$1 [L]
+
+RewriteRule ^test/(.*) test.php [L]
+
 RewriteRule ^404(.*) 404.php [L]
 
 RewriteRule ^actualizacion/(.*) index.php?page=true&params=$1 [L]

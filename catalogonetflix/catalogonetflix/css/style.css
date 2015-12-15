@@ -28,6 +28,11 @@ tr{
 	height: 61px;
 }
 
+.bold{
+	font-weight: 900;
+	   color: #E50914;
+}
+
 .td-covers{
 	
 }
@@ -443,6 +448,7 @@ a.title-i:link, a.title-i:visited {
 .post-img{
 	width: 300px;
 	margin: 5px;
+	height: 168.9px;
 }
 .post-img-div{
 	display: table-cell;

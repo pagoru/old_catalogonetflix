@@ -3,6 +3,111 @@
 define("WEB", "http://www.catalogonetflix.es/");
 define("NAME_WEB", "Catálogo Netflix España");
 
+define ( "HOST", "localhost" );
+define ( "USER", "web_catalogo" );
+define ( "PASSWORD", "x3VxLB4u85xYVWdX" );
+define ( "DATABASE", "catalogo" );
+
+define("IP", $_SERVER['REMOTE_ADDR']);
+define("TIMESTAMP", date('Y-m-d H:i:s'));
+
+function connection(){
+	return new mysqli(HOST, USER, PASSWORD, DATABASE);
+}
+
+function incrementViewFilm($film){
+	$ip 	= IP;
+	connection()->query("INSERT INTO `FilmsViews`(`FIV_Film`, `FIV_IP`) VALUES ('$film','$ip')");
+	connection()->query("UPDATE `FilmsViews` SET `FIV_Timestamp`='".TIMESTAMP."' WHERE `FIV_Film`='$film' AND `FIV_IP`='$ip'");
+}
+function countViewsFilm($film){
+	return mysqli_num_rows(connection()->query("SELECT `FIV_Film` FROM `FilmsViews` WHERE `FIV_Film`='$film'"));
+}
+
+function incrementViewSerie($serie){
+	$ip 	= IP;
+	connection()->query("INSERT INTO `SeriesViews`(`SEV_Serie`, `SEV_IP`) VALUES ('$serie','$ip')");
+	connection()->query("UPDATE `SeriesViews` SET `SEV_Timestamp`='".TIMESTAMP."' WHERE `SEV_Serie`='$serie' AND `SEV_IP`='$ip'");
+
+}
+function countViewsSerie($serie){
+	return mysqli_num_rows(connection()->query("SELECT `SEV_Serie` FROM `SeriesViews` WHERE `SEV_Serie`='$serie'"));
+}
+
+function updateFilm($film){
+	
+	$where = "WHERE `FIL_Name`='$film->title'";
+	
+	//TITULO
+	connection()->query("INSERT INTO `Films`(`FIL_Name`) VALUES ('$film->title')");
+	
+	
+	//Netflix Link
+	$ntfl = explode("/", $film->src)[4];
+	connection()->query("UPDATE `Films` SET `FIL_NetflixLink`='$ntfl' ".$where);
+	
+	
+	//NETFLIX FECHA
+	$fecha = explode(" ", $film->disponibility);
+	$f = $fecha[2]."-".getNumMes($fecha[1])."-".$fecha[0];
+	connection()->query("UPDATE `Films` SET `FIL_NetflixPublished`='$f' ".$where);
+	
+	
+	//IMDB FECHA
+	$fecha = explode(" ", $film->imdb->year);
+	$f = $fecha[2]."-".getNumMonth($fecha[1])."-".$fecha[0];
+	connection()->query("UPDATE `Films` SET `FIL_Published`='$f' ".$where);
+	
+	
+	//DURACION
+	$d = $film->imdb->runtime;
+	connection()->query("UPDATE `Films` SET `FIL_Duration`='$d' ".$where);
+	
+	
+	//GENERO
+	if($film->imdb->genre != "N/A"){
+		
+		$generes = explode(", ", $film->imdb->genre);
+		
+		foreach ($generes as $genere){
+			//Comprobar si existe el genero
+			$result = connection()->query("SELECT `GEN_Name` FROM `Generes` WHERE `GEN_Name`='$genere'");
+			if($result->num_rows == 0){
+				connection()->query("INSERT INTO `Generes`(`GEN_Name`) VALUES ('$genere')");
+			}
+			
+			$g = "INSERT INTO `FilmsGeneres`(`FIG_Film`, `FIG_Genere`) VALUES ('$film->title','$genere')";
+			connection()->query($g);
+			
+		}
+		
+	}
+	
+}
+
+function getNumMonth($mess){
+	$meses = array("Jan","Feb","Mar","Apr","May","Jun","Jul","Aug","Sep","Oct","Nov","Dec");
+	$m = 1;
+	foreach ($meses as $mes){
+		if($mes == $mess){
+			break;
+		}
+		$m++;
+	}
+	return $m;
+}
+function getNumMes($mess){
+	$meses = array("Enero","Febrero","Marzo","Abril","Mayo","Junio","Julio","Agosto","Septiembre","Octubre","Noviembre","Diciembre");
+	$m = 1;
+	foreach ($meses as $mes){
+		if($mes == $mess){
+			break;
+		}
+		$m++;
+	}
+	return $m;
+}
+
 function error404(){
 	echo "<meta http-equiv='refresh' content='0; url=".WEB."404' />";
 }
