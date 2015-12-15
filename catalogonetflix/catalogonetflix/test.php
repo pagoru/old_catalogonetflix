@@ -16,19 +16,10 @@ include 'include/functions.php';
 //escrito		- String 128 (dividido por comas) <<tablas individuales
 //protagonizado	- String 128 (dividido por comas) <<tablas individuales
 
-$genere = "Comedy";
-$mysqli = connection();
-
-$result = connection()->query("SELECT `GEN_Name` FROM `Generes` WHERE `GEN_Name`='$genere'");
-
-while($row = $result->fetch_assoc()) {
-	
-	echo $row["GEN_Name"];
-	
-}
 /*
 $params = $_GET["params"];
 $p = explode("/", $params);
+
 
 if($p[0] == "peliculas"){
 	

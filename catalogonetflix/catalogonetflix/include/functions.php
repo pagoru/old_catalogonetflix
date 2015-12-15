@@ -15,10 +15,19 @@ function connection(){
 	return new mysqli(HOST, USER, PASSWORD, DATABASE);
 }
 
+function userHistory(){
+	$ip 		= IP;
+	$os 		= getOS();
+	$browser 	= getBrowser();
+	$path		= $_SERVER['REQUEST_URI'];
+	connection()->query("INSERT INTO `UserHistory`(`USR_IP`, `USR_OS`, `USR_Browser`, `USR_Path`) VALUES ('$ip','$os','$browser', '$path')");
+}
+
 function incrementViewFilm($film){
 	$ip 	= IP;
 	connection()->query("INSERT INTO `FilmsViews`(`FIV_Film`, `FIV_IP`) VALUES ('$film','$ip')");
 	connection()->query("UPDATE `FilmsViews` SET `FIV_Timestamp`='".TIMESTAMP."' WHERE `FIV_Film`='$film' AND `FIV_IP`='$ip'");
+	
 }
 function countViewsFilm($film){
 	return mysqli_num_rows(connection()->query("SELECT `FIV_Film` FROM `FilmsViews` WHERE `FIV_Film`='$film'"));
@@ -34,6 +43,32 @@ function countViewsSerie($serie){
 	return mysqli_num_rows(connection()->query("SELECT `SEV_Serie` FROM `SeriesViews` WHERE `SEV_Serie`='$serie'"));
 }
 
+function updateSerie($film){
+	
+	$where = "WHERE `SER_Name`='$film->title'";
+	
+	//TITULO
+	connection()->query("INSERT INTO `Series`(`SER_Name`) VALUES ('$film->title')");
+	
+	
+	//NETFLIX FECHA
+	$fecha = explode(" ", $film->disponibility);
+	$f = $fecha[2]."-".getNumMes($fecha[1])."-".$fecha[0];
+	connection()->query("UPDATE `Series` SET `SER_NetflixPublished`='$f' ".$where);
+	
+	
+	//Netflix Link
+	$ntfl = explode("/", $film->src)[4];
+	connection()->query("UPDATE `Series` SET `SER_NetflixLink`='$ntfl' ".$where);
+	
+	
+	//IMDB FECHA
+	$fecha = explode(" ", $film->imdb->year);
+	$f = $fecha[2]."-".getNumMonth($fecha[1])."-".$fecha[0];
+	connection()->query("UPDATE `Series` SET `SER_Published`='$f' ".$where);
+	
+}
+
 function updateFilm($film){
 	
 	$where = "WHERE `FIL_Name`='$film->title'";
@@ -42,15 +77,15 @@ function updateFilm($film){
 	connection()->query("INSERT INTO `Films`(`FIL_Name`) VALUES ('$film->title')");
 	
 	
-	//Netflix Link
-	$ntfl = explode("/", $film->src)[4];
-	connection()->query("UPDATE `Films` SET `FIL_NetflixLink`='$ntfl' ".$where);
-	
-	
 	//NETFLIX FECHA
 	$fecha = explode(" ", $film->disponibility);
 	$f = $fecha[2]."-".getNumMes($fecha[1])."-".$fecha[0];
 	connection()->query("UPDATE `Films` SET `FIL_NetflixPublished`='$f' ".$where);
+	
+	
+	//Netflix Link
+	$ntfl = explode("/", $film->src)[4];
+	connection()->query("UPDATE `Films` SET `FIL_NetflixLink`='$ntfl' ".$where);
 	
 	
 	//IMDB FECHA
@@ -62,6 +97,63 @@ function updateFilm($film){
 	//DURACION
 	$d = $film->imdb->runtime;
 	connection()->query("UPDATE `Films` SET `FIL_Duration`='$d' ".$where);
+	
+	
+	//Directors
+	if($film->imdb->director != "N/A"){
+		
+		$people = explode(", ", $film->imdb->director);
+		
+		foreach($people as $person){
+			//Comprobar si existe la persona
+			$result = connection()->query("SELECT `PEO_Name` FROM `People` WHERE `PEO_Name`='$person'");
+			if($result->num_rows == 0){
+				connection()->query("INSERT INTO `People`(`PEO_Name`) VALUES ('$person')");
+			}
+			
+			$g = "INSERT INTO `FilmsDirectors`(`FID_Film`, `FID_Person`) VALUES ('$film->title', '$person')";
+			connection()->query($g);
+		}
+		
+	}
+	
+	
+	//Writers
+	if($film->imdb->writer != "N/A"){
+	
+		$people = explode(", ", $film->imdb->writer);
+	
+		foreach($people as $person){
+			//Comprobar si existe la persona
+			$result = connection()->query("SELECT `PEO_Name` FROM `People` WHERE `PEO_Name`='$person'");
+			if($result->num_rows == 0){
+				connection()->query("INSERT INTO `People`(`PEO_Name`) VALUES ('$person')");
+			}
+				
+			$g = "INSERT INTO `FilmsWriters`(`FIW_Film`, `FIW_Person`) VALUES ('$film->title', '$person')";
+			connection()->query($g);
+		}
+	
+	}
+	
+	
+	//Actores
+	if($film->imdb->actors != "N/A"){
+	
+		$people = explode(", ", $film->imdb->actors);
+	
+		foreach($people as $person){
+			//Comprobar si existe la persona
+			$result = connection()->query("SELECT `PEO_Name` FROM `People` WHERE `PEO_Name`='$person'");
+			if($result->num_rows == 0){
+				connection()->query("INSERT INTO `People`(`PEO_Name`) VALUES ('$person')");
+			}
+	
+			$g = "INSERT INTO `FilmsActors`(`FIA_Film`, `FIA_Person`) VALUES ('$film->title', '$person')";
+			connection()->query($g);
+		}
+	
+	}
 	
 	
 	//GENERO

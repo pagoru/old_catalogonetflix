@@ -36,4 +36,5 @@
 	<meta name="twitter:image" 			content="<?php echo WEB;?>assets/logos/rs/card-twitter.png" id="twitter-card-image">
 		
 	<?php include_once("analyticstracking.php") ?>
+	<?php userHistory();?>
 </head>

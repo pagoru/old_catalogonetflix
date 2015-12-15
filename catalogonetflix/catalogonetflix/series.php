@@ -116,6 +116,11 @@ if(!empty($p[0])){
 	});
 	</script>
 <?php elseif($film->exist):?>
+
+	<?php 
+		updateSerie($film);
+		incrementViewSerie($film->title);
+	?>
 	<body>
 	
 		<div class="header-left">
