@@ -23,6 +23,9 @@ $film = "";
 
 updateSerie(getSingleSerie("Homeland"));
 
+
+echo mysqli_num_rows(connection()->query("SELECT DISTINCT `USR_IP` FROM `UserHistory` WHERE `USR_History` > now() - INTERVAL 24 HOUR"));
+
 // $genere = "Comedy";
 // $mysqli = connection();
 
