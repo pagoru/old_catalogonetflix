@@ -116,6 +116,12 @@ if(!empty($p[0])){
 	});
 	</script>
 <?php elseif($film->exist):?>
+
+	<?php 
+		updateSerie($film);
+		incrementViewSerie($film->title);
+	?>
+	
 	<body>
 	
 		<div class="header-left">
@@ -154,7 +160,7 @@ if(!empty($p[0])){
 								
 								<li class="film-i-info"><a class="film-i-info-g">Temporada <?php echo $season->number;?>:</a> <?php echo $season->episodes;?> episodios</li>
 							
-							<?php endforeach;?>
+							<?php endforeach;?> 
 						</ol>
 					
 					</div>

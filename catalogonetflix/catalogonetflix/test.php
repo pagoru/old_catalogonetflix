@@ -16,16 +16,23 @@ include 'include/functions.php';
 //escrito		- String 128 (dividido por comas) <<tablas individuales
 //protagonizado	- String 128 (dividido por comas) <<tablas individuales
 
-$genere = "Comedy";
-$mysqli = connection();
+// $string = "Craig Rosenberg (screenplay), Doug Miro (screenplay), Carlo Bernard (screenplay), Jee-woon Kim (motion picture 'Changhwa, Hongryon')";
+// echo preg_replace("/\([^)]+\)/","",$string); // 'ABC '
 
-$result = connection()->query("SELECT `GEN_Name` FROM `Generes` WHERE `GEN_Name`='$genere'");
+$film = "";
 
-while($row = $result->fetch_assoc()) {
+updateSerie(getSingleSerie("Homeland"));
+
+// $genere = "Comedy";
+// $mysqli = connection();
+
+// $result = connection()->query("SELECT `GEN_Name` FROM `Generes` WHERE `GEN_Name`='$genere'");
+
+// while($row = $result->fetch_assoc()) {
 	
-	echo $row["GEN_Name"];
+// 	echo $row["GEN_Name"];
 	
-}
+// }
 /*
 $params = $_GET["params"];
 $p = explode("/", $params);

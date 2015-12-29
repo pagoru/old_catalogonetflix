@@ -3,7 +3,7 @@
 	<meta http-equiv="content-type" content="text/html; charset=ISO-8859-1">
 	<link href="<?php echo WEB;?>css/style.css" rel="stylesheet">
 	
-	<link rel="shortcut icon" href="<?php echo WEB;?>assets/logos/netflix-icon.ico">
+	<link rel="shortcut icon" type="image/x-icon" href="<?php echo WEB;?>assets/logos/netflix-icon.ico">
 	<script src="https://ajax.googleapis.com/ajax/libs/jquery/2.1.3/jquery.min.js"></script>
 	
 	<meta name="description" content="El catálogo completo de Netflix España de forma pública con toda la información sobre las nuevas peliculas y series que se añadirán a netflix." />
@@ -35,5 +35,5 @@
 	<meta name="twitter:description" 	content="El catálogo completo de Netflix España de forma pública con toda la información sobre las nuevas peliculas y series que se añadirán a netflix.">
 	<meta name="twitter:image" 			content="<?php echo WEB;?>assets/logos/rs/card-twitter.png" id="twitter-card-image">
 		
-	<?php include_once("analyticstracking.php") ?>
+	<?php include_once("analyticstracking.php"); ?>
 </head>

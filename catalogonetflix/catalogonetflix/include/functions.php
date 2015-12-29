@@ -34,6 +34,106 @@ function countViewsSerie($serie){
 	return mysqli_num_rows(connection()->query("SELECT `SEV_Serie` FROM `SeriesViews` WHERE `SEV_Serie`='$serie'"));
 }
 
+function updateSerie($film){
+	
+	$where = "WHERE `SER_Name`='$film->title'";
+	
+	//TITULO
+	connection()->query("INSERT INTO `Series`(`SER_Name`) VALUES ('$film->title')");
+	
+	
+	//NETFLIX FECHA
+	$fecha = explode(" ", $film->disponibility);
+	$f = $fecha[2]."-".getNumMes($fecha[1])."-".$fecha[0];
+	connection()->query("UPDATE `Series` SET `SER_NetflixPublished`='$f' ".$where);
+	
+	
+	//Netflix Link
+	$ntfl = explode("/", $film->src)[4];
+	connection()->query("UPDATE `Series` SET `SER_NetflixLink`='$ntfl' ".$where);
+	
+	
+	//IMDB FECHA
+	$fecha = explode(" ", $film->imdb->year);
+	$f = $fecha[2]."-".getNumMonth($fecha[1])."-".$fecha[0];
+	connection()->query("UPDATE `Series` SET `SER_Published`='$f' ".$where);
+	
+	
+	//Directors
+	if($film->imdb->director != "N/A"){
+	
+		$people = explode(",", $film->imdb->director);
+	
+		foreach($people as $person){
+			//Comprobar si existe la persona
+			updatePerson($person);
+			$g = "INSERT INTO `SeriesDirectors`(`SED_Serie`, `SED_Person`) VALUES ('$film->title', '$person')";
+			connection()->query($g);
+		}
+	
+	}
+	
+	
+	//Writers
+	if($film->imdb->writer != "N/A"){
+	
+		$people = explode(", ", $film->imdb->writer);
+	
+		foreach($people as $person){
+			//Comprobar si existe la persona
+			updatePerson($person);
+			$g = "INSERT INTO `SeriesWriters`(`SEW_Serie`, `SEW_Person`) VALUES ('$film->title', '$person')";
+			connection()->query($g);
+		}
+	
+	}
+	
+	//Actores
+	if($film->imdb->actors != "N/A"){
+	
+		$people = explode(", ", $film->imdb->actors);
+	
+		foreach($people as $person){
+			//Comprobar si existe la persona
+			updatePerson($person);
+			$g = "INSERT INTO `SeriesActors`(`SEA_Serie`, `SEA_Person`) VALUES ('$film->title', '$person')";
+			connection()->query($g);
+		}
+	
+	}
+	
+	//GENERO
+	if($film->imdb->genre != "N/A"){
+	
+		$generes = explode(", ", $film->imdb->genre);
+	
+		foreach ($generes as $genere){
+			//Comprobar si existe el genero
+			updateGenre($genere);				
+			$g = "INSERT INTO `SeriesGeneres`(`SEG_Serie`, `SEG_Genere`) VALUES ('$film->title','$genere')";
+			connection()->query($g);
+				
+		}
+	
+	}
+	
+}
+
+function updatePerson($person){
+	$person = trim($person);
+	$result = connection()->query("SELECT `PEO_Name` FROM `People` WHERE `PEO_Name`='$person'");
+	if($result->num_rows == 0){
+		connection()->query("INSERT INTO `People`(`PEO_Name`) VALUES ('$person')");
+	}
+}
+
+function updateGenre($genere){
+	$result = connection()->query("SELECT `GEN_Name` FROM `Generes` WHERE `GEN_Name`='$genere'");
+	if($result->num_rows == 0){
+		connection()->query("INSERT INTO `Generes`(`GEN_Name`) VALUES ('$genere')");
+	}
+}
+
 function updateFilm($film){
 	
 	$where = "WHERE `FIL_Name`='$film->title'";
@@ -42,15 +142,15 @@ function updateFilm($film){
 	connection()->query("INSERT INTO `Films`(`FIL_Name`) VALUES ('$film->title')");
 	
 	
-	//Netflix Link
-	$ntfl = explode("/", $film->src)[4];
-	connection()->query("UPDATE `Films` SET `FIL_NetflixLink`='$ntfl' ".$where);
-	
-	
 	//NETFLIX FECHA
 	$fecha = explode(" ", $film->disponibility);
 	$f = $fecha[2]."-".getNumMes($fecha[1])."-".$fecha[0];
 	connection()->query("UPDATE `Films` SET `FIL_NetflixPublished`='$f' ".$where);
+	
+	
+	//Netflix Link
+	$ntfl = explode("/", $film->src)[4];
+	connection()->query("UPDATE `Films` SET `FIL_NetflixLink`='$ntfl' ".$where);
 	
 	
 	//IMDB FECHA
@@ -64,6 +164,52 @@ function updateFilm($film){
 	connection()->query("UPDATE `Films` SET `FIL_Duration`='$d' ".$where);
 	
 	
+	//Directors
+	if($film->imdb->director != "N/A"){
+		
+		$people = explode(",", $film->imdb->director);
+		
+		foreach($people as $person){
+			$person = trim($person);
+			//Comprobar si existe la persona
+			updatePerson($person);
+			$g = "INSERT INTO `FilmsDirectors`(`FID_Film`, `FID_Person`) VALUES ('$film->title', '$person')";
+			connection()->query($g);
+		}
+		
+	}
+	
+	
+	//Writers
+	if($film->imdb->writer != "N/A"){
+	
+		$people = explode(", ", $film->imdb->writer);
+	
+		foreach($people as $person){
+			//Comprobar si existe la persona
+			updatePerson($person);
+			$g = "INSERT INTO `FilmsWriters`(`FIW_Film`, `FIW_Person`) VALUES ('$film->title', '$person')";
+			connection()->query($g);
+		}
+	
+	}
+	
+	
+	//Actores
+	if($film->imdb->actors != "N/A"){
+	
+		$people = explode(", ", $film->imdb->actors);
+	
+		foreach($people as $person){
+			//Comprobar si existe la persona
+			updatePerson($person);
+			$g = "INSERT INTO `FilmsActors`(`FIA_Film`, `FIA_Person`) VALUES ('$film->title', '$person')";
+			connection()->query($g);
+		}
+	
+	}
+	
+	
 	//GENERO
 	if($film->imdb->genre != "N/A"){
 		
@@ -71,11 +217,7 @@ function updateFilm($film){
 		
 		foreach ($generes as $genere){
 			//Comprobar si existe el genero
-			$result = connection()->query("SELECT `GEN_Name` FROM `Generes` WHERE `GEN_Name`='$genere'");
-			if($result->num_rows == 0){
-				connection()->query("INSERT INTO `Generes`(`GEN_Name`) VALUES ('$genere')");
-			}
-			
+			updateGenre($genere);
 			$g = "INSERT INTO `FilmsGeneres`(`FIG_Film`, `FIG_Genere`) VALUES ('$film->title','$genere')";
 			connection()->query($g);
 			
@@ -133,7 +275,7 @@ function getAbecedario(){
 
 function getSeries(){
 
-	$d = scandir("info/series");
+	$d = scandir("catalogo/series");
 	
 	$i = 0;
 	foreach (getAbecedario() as $ccc){
@@ -150,7 +292,7 @@ function getSeries(){
 				
 			//d
 				
-			$ser 	= simplexml_load_file("info/series/".$fi);
+			$ser 	= simplexml_load_file("catalogo/series/".$fi);
 
 			$title 	=  limpiarChars($ser->title);
 			$img 	=  $ser->background;
@@ -164,11 +306,11 @@ function getSeries(){
 								
 				if($inicial == $abc->char){
 					
-					$serie[$abc->indice]->serie[$serie[$abc->indice]->indice] = new stdClass();
-					$serie[$abc->indice]->serie[$serie[$abc->indice]->indice]->title = $title;
-					$serie[$abc->indice]->serie[$serie[$abc->indice]->indice]->background = $img;
-					$serie[$abc->indice]->serie[$serie[$abc->indice]->indice]->cover = $cover;
-					$serie[$abc->indice]->serie[$serie[$abc->indice]->indice]->src = $src;
+					$serie[$abc->indice]->serie[$serie[$abc->indice]->indice] 				= new stdClass();
+					$serie[$abc->indice]->serie[$serie[$abc->indice]->indice]->title 		= $title;
+					$serie[$abc->indice]->serie[$serie[$abc->indice]->indice]->background 	= $img;
+					$serie[$abc->indice]->serie[$serie[$abc->indice]->indice]->cover 		= $cover;
+					$serie[$abc->indice]->serie[$serie[$abc->indice]->indice]->src 			= $src;
 
 					$bbc = true;
 					$serie[$abc->indice]->indice++;
@@ -180,11 +322,11 @@ function getSeries(){
 
 			if(!$bbc){
 					
-				$serie[0]->serie[$serie[0]->indice] = new stdClass();
-				$serie[0]->serie[$serie[0]->indice]->title = $title;
+				$serie[0]->serie[$serie[0]->indice] 			= new stdClass();
+				$serie[0]->serie[$serie[0]->indice]->title 		= $title;
 				$serie[0]->serie[$serie[0]->indice]->background = $img;
-				$serie[0]->serie[$serie[0]->indice]->cover = $cover;
-				$serie[0]->serie[$serie[0]->indice]->src = $src;
+				$serie[0]->serie[$serie[0]->indice]->cover 		= $cover;
+				$serie[0]->serie[$serie[0]->indice]->src 		= $src;
 					
 				$serie[0]->indice++;
 					
@@ -200,7 +342,7 @@ function getSeries(){
 
 function getCountFilmsSeries($type){
 	
-	$d = scandir("info/".$type);
+	$d = scandir("catalogo/".$type);
 	
 	$i = 0;
 	
@@ -220,14 +362,14 @@ function getCountFilmsSeries($type){
 
 function getFilms(){
 	
-	$d = scandir("info/films");
+	$d = scandir("catalogo/films");
 		
 	$i = 0;
 	foreach (getAbecedario() as $ccc){
 		
-		$film[$ccc->indice] = new stdClass();
-		$film[$ccc->indice]->letra  = $ccc->char;
-		$film[$ccc->indice]->indice  = 0;
+		$film[$ccc->indice] 			= new stdClass();
+		$film[$ccc->indice]->letra  	= $ccc->char;
+		$film[$ccc->indice]->indice  	= 0;
 		
 	}
 	
@@ -235,7 +377,7 @@ function getFilms(){
 		
 		if($fi != "test.xml" && strpos($fi, ".xml") !== false){
 			
-			$fil 	= simplexml_load_file("info/films/".$fi);
+			$fil 	= simplexml_load_file("catalogo/films/".$fi);
 			
 			$title 	=  limpiarChars($fil->title);
 			$img 	=  $fil->background;
@@ -249,11 +391,11 @@ function getFilms(){
 				
 				if($inicial == $abc->char){
 					
-					$film[$abc->indice]->film[$film[$abc->indice]->indice] = new stdClass();
-					$film[$abc->indice]->film[$film[$abc->indice]->indice]->title = $title;
-					$film[$abc->indice]->film[$film[$abc->indice]->indice]->background = $img;
-					$film[$abc->indice]->film[$film[$abc->indice]->indice]->cover = $cover;
-					$film[$abc->indice]->film[$film[$abc->indice]->indice]->src = $src;
+					$film[$abc->indice]->film[$film[$abc->indice]->indice] 				= new stdClass();
+					$film[$abc->indice]->film[$film[$abc->indice]->indice]->title 		= $title;
+					$film[$abc->indice]->film[$film[$abc->indice]->indice]->background 	= $img;
+					$film[$abc->indice]->film[$film[$abc->indice]->indice]->cover 		= $cover;
+					$film[$abc->indice]->film[$film[$abc->indice]->indice]->src 		= $src;
 					
 					$bbc = true;
 					$film[$abc->indice]->indice++;
@@ -265,11 +407,11 @@ function getFilms(){
 			
 			if(!$bbc){
 				
-				$film[0]->film[$film[0]->indice] = new stdClass();
-				$film[0]->film[$film[0]->indice]->title = $title;
-				$film[0]->film[$film[0]->indice]->background = $img;
-				$film[0]->film[$film[0]->indice]->cover = $cover;
-				$film[0]->film[$film[0]->indice]->src = $src;
+				$film[0]->film[$film[0]->indice] 				= new stdClass();
+				$film[0]->film[$film[0]->indice]->title 		= $title;
+				$film[0]->film[$film[0]->indice]->background 	= $img;
+				$film[0]->film[$film[0]->indice]->cover 		= $cover;
+				$film[0]->film[$film[0]->indice]->src 			= $src;
 				
 				$film[0]->indice++;
 				
@@ -284,7 +426,7 @@ function getFilms(){
 
 function getSingleSerie($serieName){
 
-	$path = "info/series/".$serieName.".xml";
+	$path = "catalogo/series/".$serieName.".xml";
 
 	$serie = new stdClass();
 
@@ -338,7 +480,7 @@ function getSingleSerie($serieName){
 
 function getSingleFilm($filmName){
 
-	$path = "info/films/".$filmName.".xml";
+	$path = "catalogo/films/".$filmName.".xml";
 		
 	$film = new stdClass();
 	
@@ -363,22 +505,27 @@ function getSingleFilm($filmName){
 		
 		$ffilm = json_decode(utf8_decode(file_get_contents("http://www.omdbapi.com/?i=".$film->imdb."&plot=short&r=json")));
 		
-		$film->imdb = new stdClass();
-		$film->imdb->year = $ffilm->Released;
-		$film->imdb->runtime = $ffilm->Runtime;
-		$film->imdb->country = $ffilm->Country;
-		$film->imdb->director = $ffilm->Director;
-		$film->imdb->actors = $ffilm->Actors;
-		$film->imdb->writer = $ffilm->Writer;
-		$film->imdb->genre = $ffilm->Genre;
-		$film->imdb->plot = $ffilm->Plot;
-		$film->imdb->rating = $ffilm->imdbRating;
+		$film->imdb 			= new stdClass();
+		$film->imdb->year 		= $ffilm->Released;
+		$film->imdb->runtime 	= $ffilm->Runtime;
+		$film->imdb->country 	= $ffilm->Country;
+		$film->imdb->director 	= replaceParentesis($ffilm->Director);
+		$film->imdb->actors 	= replaceParentesis($ffilm->Actors);
+		$film->imdb->writer 	= replaceParentesis($ffilm->Writer);
+		$film->imdb->genre 		= $ffilm->Genre;
+		$film->imdb->plot 		= $ffilm->Plot;
+		$film->imdb->rating 	= $ffilm->imdbRating; 
 		
 	} else {
 		$film->exist = false;
 	}
 
 	return $film;
+}
+
+function replaceParentesis($str){
+	$string = preg_replace("/\([^)]+\)/","",$str);
+	return $string;
 }
 
 function getCoverFilm($filmName){
@@ -433,7 +580,7 @@ function limpiarChars($name){
 
 function getLastPosts(){
 	
-	$d = scandir("info/posts");
+	$d = scandir("catalogo/posts");
 	
 	$i = 0;
 	foreach($d as $pos){
@@ -461,7 +608,7 @@ function loadSinglePost($fileName){
 	
 	$meses = array("Enero","Febrero","Marzo","Abril","Mayo","Junio","Julio","Agosto","Septiembre","Octubre","Noviembre","Diciembre");
 	
-	$path = "info/posts/".$fileName.".xml";
+	$path = "catalogo/posts/".$fileName.".xml";
 	
 	$post = new stdClass();
 	
