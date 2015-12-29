@@ -37,6 +37,7 @@ updateSerie(getSingleSerie("Homeland"));
 $params = $_GET["params"];
 $p = explode("/", $params);
 
+
 if($p[0] == "peliculas"){
 	
 	$film = getSingleFilm(replaceDashToSpace($p[2]));

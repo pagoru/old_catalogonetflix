@@ -121,7 +121,6 @@ if(!empty($p[0])){
 		updateSerie($film);
 		incrementViewSerie($film->title);
 	?>
-	
 	<body>
 	
 		<div class="header-left">
