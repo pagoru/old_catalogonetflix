@@ -2,14 +2,14 @@
 error_reporting(E_ALL);
 ini_set("display_errors", true);
 
-header('Content-Type: text/html; charset=ISO-8859-1');
+header('Content-Type: text/html; charset=UTF-8');
 include 'include/functions.php';
 ?>
 <?php include 'include/head.php'?>
 <html>
 	<body>
 	
-		<?php include 'include/header.php'?>
+		<?php include 'include/header.php'?> 
 		
 		<div class="header-left" >
 			<a target="_blank" href="https://www.facebook.com/catalogonetflix"><div class="red red-facebook"></div></a>
@@ -43,7 +43,7 @@ include 'include/functions.php';
 							<div class="post-fecha"><?php echo $post->date;?></div>
 							<div class="post-text">
 								<?php if(!empty($post->films)):?>
-									<div class="post-subtitulo">Últimas películas añadidas...</div>
+									<div class="post-subtitulo">Ãšltimas pelÃ­culas aÃ±adidas...</div>
 									<div class="post-add">
 										<?php foreach ($post->films as $pelicula):?>
 											<a target="_blank" class="post-img-ref" href="http://www.catalogonetflix.es/peliculas/<?php echo replaceSpace($pelicula);?>">
@@ -56,7 +56,7 @@ include 'include/functions.php';
 								<?php endif;?>
 								
 								<?php if(!empty($post->series)):?>					
-									<div class="post-subtitulo">Últimas series añadidas...</div>
+									<div class="post-subtitulo">Ãšltimas series aÃ±adidas...</div>
 									<div class="post-add">
 										<?php foreach ($post->series as $serie):?>
 											<a target="_blank" class="post-img-ref" href="http://www.catalogonetflix.es/series/<?php echo replaceSpace($serie);?>">
@@ -81,10 +81,10 @@ include 'include/functions.php';
 					
 				<?php else:?>
 					<div class="post">
-						Total de películas en Netflix España 
+						Total de pelÃ­culas en Netflix EspaÃ±a 
 						<a class="bold"><?php echo getCountFilmsSeries("films");?></a>.
 						<br />
-						Total de series en Netflix España 
+						Total de series en Netflix EspaÃ±a 
 						<a class="bold"><?php echo getCountFilmsSeries("series")?></a>.
 					</div>
 					
@@ -96,7 +96,7 @@ include 'include/functions.php';
 							<div class="post-fecha"><?php echo $post->date;?></div>
 							<div class="post-text">
 								<?php if(!empty($post->films)):?>
-									<div class="post-subtitulo">Últimas películas añadidas...</div>
+									<div class="post-subtitulo">Ãšltimas pelÃ­culas aÃ±adidas...</div>
 									<div class="post-add">
 										<?php foreach ($post->films as $pelicula):?>
 											<a target="_blank" class="post-img-ref" href="http://www.catalogonetflix.es/peliculas/<?php echo replaceSpace($pelicula);?>">
@@ -109,7 +109,7 @@ include 'include/functions.php';
 								<?php endif;?>
 								
 								<?php if(!empty($post->series)):?>					
-									<div class="post-subtitulo">Últimas series añadidas...</div>
+									<div class="post-subtitulo">Ãšltimas series aÃ±adidas...</div>
 									<div class="post-add">
 										<?php foreach ($post->series as $serie):?>
 											<a target="_blank" class="post-img-ref" href="http://www.catalogonetflix.es/series/<?php echo replaceSpace($serie);?>">

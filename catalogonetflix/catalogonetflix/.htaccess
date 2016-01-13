@@ -10,7 +10,7 @@ RewriteRule ^peliculas(.*) peliculas.php [L]
 RewriteRule ^img/(.*) img.php?params=$1 [L]
 RewriteRule ^_img/(.*) _img.php?params=$1 [L]
 
-RewriteRule ^test/(.*) test.php [L]
+RewriteRule ^test/(.*) test.php?p=$1 [L]
 
 RewriteRule ^404(.*) 404.php [L]
 

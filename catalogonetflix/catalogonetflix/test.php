@@ -4,87 +4,131 @@ ini_set("display_errors", true);
 
 include 'include/functions.php';
 
-//link			- int 8
-//Disponible 	- timestamp
-//año			- timestamp
-//duracion		- int 3
-//descripcion	- String 512
-
-//genero		- String 64 (dividido por comas) <<tablas individuales
-
-//dirigido		- String 128 (dividido por comas) <<tablas individuales
-//escrito		- String 128 (dividido por comas) <<tablas individuales
-//protagonizado	- String 128 (dividido por comas) <<tablas individuales
-
-// $string = "Craig Rosenberg (screenplay), Doug Miro (screenplay), Carlo Bernard (screenplay), Jee-woon Kim (motion picture 'Changhwa, Hongryon')";
-// echo preg_replace("/\([^)]+\)/","",$string); // 'ABC '
-
-$film = "";
-
-updateSerie(getSingleSerie("Homeland"));
-
-
-echo mysqli_num_rows(connection()->query("SELECT DISTINCT `USR_IP` FROM `UserHistory` WHERE `USR_History` > now() - INTERVAL 24 HOUR"));
-
-// $genere = "Comedy";
-// $mysqli = connection();
-
-// $result = connection()->query("SELECT `GEN_Name` FROM `Generes` WHERE `GEN_Name`='$genere'");
-
-// while($row = $result->fetch_assoc()) {
-	
-// 	echo $row["GEN_Name"];
-	
-// }
-/*
-$params = $_GET["params"];
-$p = explode("/", $params);
-
-
-if($p[0] == "peliculas"){
-	
-	$film = getSingleFilm(replaceDashToSpace($p[2]));
-	
-	$im = getImageFrom($film->$p[1]);
-	
-	header('Content-Type: image/png');
-	
-	imagepng($im);
-	imagedestroy($im);
-	
-} elseif($p[0] == "series"){
-	
-	$serie = getSingleSerie(replaceDashToSpace($p[2]));
-	
-	$im = getImageFrom($serie->$p[1]);
-	
-	header('Content-Type: image/png');
-	
-	
-	imagepng($im);
-	imagedestroy($im);
-	
-} else {
-	error404();
+function cmpa($b, $a){
+	return strcmp($b->Name, $a->Name);
 }
 
-function getImageFrom($remote_file){
-
-	$headers = get_headers($remote_file, 1);
-
-	switch ($headers['Content-Type']){
-
-		case 'image/jpeg':
-			return imagecreatefromjpeg($remote_file);
-		case 'image/gif':
-			return imagecreatefromgif($remote_file);
-		case 'image/png':
-			return imagecreatefrompng($remote_file);
-		default:
-			return null;
+function getFilms_(){
+	
+	$con = connection()->query("SELECT * FROM `Films`");
+	
+	$i = 0;
+	while ($row = $con->fetch_assoc()){
+		
+		$films[$i] 						= new stdClass();
+		
+		$films[$i]->NetflixLink	 		= $row["FIL_NetflixLink"];
+		$films[$i]->IMDB		 		= $row["FIL_IMDB"];
+		
+		$films[$i]->Name 				= $row["FIL_Name"];
+		$films[$i]->Name_es 			= $row["FIL_Name_es"];
+		
+		$films[$i]->NetflixPublished 	= parseDateFilm_($row["FIL_NetflixPublished"]);
+		$films[$i]->Published	 		= parseDateFilm_($row["FIL_Published"]);
+		
+		$films[$i]->Cover 				= $row["FIL_Cover"];
+		$films[$i]->Background 			= $row["FIL_Background"];
+		$films[$i]->Poster 				= $row["FIL_Poster"];
+		
+		$films[$i]->Duration	 		= $row["FIL_Duration"];
+		
+		
+		$ntflk = $films[$i]->NetflixLink;
+		
+		//Actors
+		$con2 = connection()->query("SELECT `FIA_Person` FROM `FilmsActors` WHERE `FIA_Film`='".$ntflk."'");
+		$j = 0;
+		while ($row2 = $con2->fetch_assoc()){
+			$films[$i]->Actors[$j]					= new stdClass();
+			$films[$i]->Actors[$j]->Person 			= $row2["FIA_Person"];
+			$j++;
+		}
+		//Actors END
+		
+		//Directors
+		$con2 = connection()->query("SELECT `FID_Person` FROM `FilmsDirectors` WHERE `FID_Film`='".$ntflk."'");
+		$j = 0;
+		while ($row2 = $con2->fetch_assoc()){
+			$films[$i]->Directors[$j]				= new stdClass();
+			$films[$i]->Directors[$j]->Person 		= $row2["FID_Person"];
+			$j++;
+		}
+		//Directors END
+		
+		//Writers
+		$con2 = connection()->query("SELECT `FIW_Person` FROM `FilmsWriters` WHERE `FIW_Film`='".$ntflk."'");
+		$j = 0;
+		while ($row2 = $con2->fetch_assoc()){
+			$films[$i]->Writers[$j]					= new stdClass();
+			$films[$i]->Writers[$j]->Person 		= $row2["FIW_Person"];
+			$j++;
+		}
+		//Writers END
+		
+		$i++;
+		
 	}
-
+	
+	usort($films, "cmpa"); 
+	
+	return $films;
+	
 }
-*/
+function parseDateFilm_($date){
+	
+	return explode(" ", $date)[0];
+	
+}
+
+function L_($film){
+	echo $film->NetflixLink;
+}
+
+updateAll();
+
+echo $_GET["p"];
+
 ?>
-<br />test page
+<style>
+.id{
+	width: 64px;
+}
+.date{
+	width: 76px;
+}
+.duration{
+	width: 32px;
+}
+.text{
+	width: 156px;
+}
+input{
+	margin: -2px;
+	margin-bottom: 4px;
+}
+form{
+	margin: 0px;
+	padding: 16px;
+}
+.p0{
+	background-color: rgb(222, 222, 222);
+	padding: 8px;
+}
+.p1{
+	background-color: rgb(194, 192, 192);
+	padding: 8px;
+}
+.person{
+	width: 96px;
+	float: left;
+}
+</style>
+<?php $i = 0;?>
+<?php //foreach (getFilms_() as $film):?>
+	<div class="p<?php echo $i%2;?>">
+		<input class="id" value="<?php echo $film->NetflixLink;?>"/>
+		<input class="text" value="<?php echo $film->Name;?>"/>
+		<input class="text" value="<?php echo $film->Name_es;?>"/>
+	</div>
+	<?php $i++;?>
+<?php //endforeach;?>

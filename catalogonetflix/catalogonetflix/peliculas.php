@@ -2,7 +2,7 @@
 error_reporting(E_ALL);
 ini_set("display_errors", true);
 
-header('Content-Type: text/html; charset=ISO-8859-1');
+header('Content-Type: text/html; charset=UTF-8');
 include 'include/functions.php';
 
 include 'include/head.php';
@@ -111,15 +111,15 @@ if(!empty($p[0])){
 			<?php endif;?>
 		<?php endforeach;?>
 
-		$( "#title" ).text("Películas - <?php echo NAME_WEB;?>");
-		$( "#name-title" ).text("Películas - <?php echo NAME_WEB;?>");
+		$( "#title" ).text("PelÃ­culas - <?php echo NAME_WEB;?>");
+		$( "#name-title" ).text("PelÃ­culas - <?php echo NAME_WEB;?>");
 	});
 	</script>
 <?php elseif($film->exist):?>
 
 	<?php 
-		updateFilm($film);
-		incrementViewFilm($film->title);
+// 		updateFilm($film);
+// 		incrementViewFilm($film->title);
 	?>
 
 	<body>
@@ -169,8 +169,8 @@ if(!empty($p[0])){
 	$( document ).ready(function() {
 	    console.log( "ready!" );
 
-	   	$( "#title" ).text("<?php echo $film->title;?> - Películas - <?php echo NAME_WEB;?>");
-	   	$( "#name-title" ).text("<?php echo $film->title;?> - Películas - <?php echo NAME_WEB;?>");
+	   	$( "#title" ).text("<?php echo $film->title;?> - PelÃ­culas - <?php echo NAME_WEB;?>");
+	   	$( "#name-title" ).text("<?php echo $film->title;?> - PelÃ­culas - <?php echo NAME_WEB;?>");
 	   	$( "#twitter-card-image" ).attr("content", "<?php echo $film->cover?>");
 	});
 	</script>

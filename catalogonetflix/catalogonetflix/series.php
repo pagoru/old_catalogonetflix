@@ -2,7 +2,7 @@
 error_reporting(E_ALL);
 ini_set("display_errors", true);
 
-header('Content-Type: text/html; charset=ISO-8859-1');
+header('Content-Type: text/html; charset=UTF-8');
 include 'include/functions.php';
 
 include 'include/head.php';
@@ -118,8 +118,8 @@ if(!empty($p[0])){
 <?php elseif($film->exist):?>
 
 	<?php 
-		updateSerie($film);
-		incrementViewSerie($film->title);
+// 		updateSerie($film);
+// 		incrementViewSerie($film->title);
 	?>
 	<body>
 	
