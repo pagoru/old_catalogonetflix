@@ -22,28 +22,31 @@ function userHistory(){
 	$path		= $_SERVER['REQUEST_URI'];
 	connection()->query("INSERT INTO `UserHistory`(`USR_IP`, `USR_OS`, `USR_Browser`, `USR_Path`) VALUES ('$ip','$os','$browser', '$path')");
 }
-
+//DEPRECATED //DEPRECATED //DEPRECATED //DEPRECATED //DEPRECATED //DEPRECATED //DEPRECATED //DEPRECATED //DEPRECATED//DEPRECATED //DEPRECATED //DEPRECATED //DEPRECATED //DEPRECATED
 function incrementViewFilm($film){
 	$ip 	= IP;
 	connection()->query("INSERT INTO `FilmsViews`(`FIV_Film`, `FIV_IP`) VALUES ('$film','$ip')");
 	connection()->query("UPDATE `FilmsViews` SET `FIV_Timestamp`='".TIMESTAMP."' WHERE `FIV_Film`='$film' AND `FIV_IP`='$ip'");
 	
 }
+//DEPRECATED //DEPRECATED //DEPRECATED //DEPRECATED //DEPRECATED //DEPRECATED //DEPRECATED //DEPRECATED //DEPRECATED//DEPRECATED //DEPRECATED //DEPRECATED //DEPRECATED //DEPRECATED
 function countViewsFilm($film){
 	return mysqli_num_rows(connection()->query("SELECT `FIV_Film` FROM `FilmsViews` WHERE `FIV_Film`='$film'"));
 }
-
+//DEPRECATED //DEPRECATED //DEPRECATED //DEPRECATED //DEPRECATED //DEPRECATED //DEPRECATED //DEPRECATED //DEPRECATED//DEPRECATED //DEPRECATED //DEPRECATED //DEPRECATED //DEPRECATED
 function incrementViewSerie($serie){
 	$ip 	= IP;
 	connection()->query("INSERT INTO `SeriesViews`(`SEV_Serie`, `SEV_IP`) VALUES ('$serie','$ip')");
 	connection()->query("UPDATE `SeriesViews` SET `SEV_Timestamp`='".TIMESTAMP."' WHERE `SEV_Serie`='$serie' AND `SEV_IP`='$ip'");
 
 }
+//DEPRECATED //DEPRECATED //DEPRECATED //DEPRECATED //DEPRECATED //DEPRECATED //DEPRECATED //DEPRECATED //DEPRECATED//DEPRECATED //DEPRECATED //DEPRECATED //DEPRECATED //DEPRECATED
 function countViewsSerie($serie){
 	return mysqli_num_rows(connection()->query("SELECT `SEV_Serie` FROM `SeriesViews` WHERE `SEV_Serie`='$serie'"));
 }
 
-function updateSerie($serie){
+//DEPRECATED //DEPRECATED //DEPRECATED //DEPRECATED //DEPRECATED //DEPRECATED //DEPRECATED //DEPRECATED //DEPRECATED//DEPRECATED //DEPRECATED //DEPRECATED //DEPRECATED //DEPRECATED
+function updateSerie($serie){ 
 	
 	$ntflxLink = explode("/", $serie->src)[4];
 	$where = "WHERE `SER_NetflixLink`='$ntflxLink'";
@@ -189,6 +192,7 @@ function updateSerie($serie){
 	
 }
 
+//DEPRECATED //DEPRECATED //DEPRECATED //DEPRECATED //DEPRECATED //DEPRECATED //DEPRECATED //DEPRECATED //DEPRECATED//DEPRECATED //DEPRECATED //DEPRECATED //DEPRECATED //DEPRECATED
 function updatePerson($person){
 	
 	$person = mysqli_real_escape_string(connection(), $person);
@@ -198,6 +202,7 @@ function updatePerson($person){
 	}
 }
 
+//DEPRECATED //DEPRECATED //DEPRECATED //DEPRECATED //DEPRECATED //DEPRECATED //DEPRECATED //DEPRECATED //DEPRECATED//DEPRECATED //DEPRECATED //DEPRECATED //DEPRECATED //DEPRECATED
 function updateGenre($genere){
 	
 	$genere = mysqli_real_escape_string(connection(), $genere);
@@ -207,6 +212,7 @@ function updateGenre($genere){
 	}
 }
 
+//DEPRECATED //DEPRECATED //DEPRECATED //DEPRECATED //DEPRECATED //DEPRECATED //DEPRECATED //DEPRECATED //DEPRECATED//DEPRECATED //DEPRECATED //DEPRECATED //DEPRECATED //DEPRECATED
 function updateFilm($film){
 	
 	$ntflxLink = explode("/", $film->src)[4];
@@ -375,6 +381,7 @@ function error404(){
 	echo "<meta http-equiv='refresh' content='0; url=".WEB."404' />";
 }
 
+//DEPRECATED //DEPRECATED //DEPRECATED //DEPRECATED //DEPRECATED //DEPRECATED //DEPRECATED //DEPRECATED //DEPRECATED//DEPRECATED //DEPRECATED //DEPRECATED //DEPRECATED //DEPRECATED
 function getAbecedario(){
 	$j = 0;
 	
@@ -394,6 +401,7 @@ function getAbecedario(){
 	return $letra;
 }
 
+//DEPRECATED //DEPRECATED //DEPRECATED //DEPRECATED //DEPRECATED //DEPRECATED //DEPRECATED //DEPRECATED //DEPRECATED//DEPRECATED //DEPRECATED //DEPRECATED //DEPRECATED //DEPRECATED
 function getSeries_(){
 	
 	$result = connection()->query("SELECT * FROM `Series`");
@@ -408,6 +416,7 @@ function getSeries_(){
 	
 }
 
+//DEPRECATED //DEPRECATED //DEPRECATED //DEPRECATED //DEPRECATED //DEPRECATED //DEPRECATED //DEPRECATED //DEPRECATED//DEPRECATED //DEPRECATED //DEPRECATED //DEPRECATED //DEPRECATED
 function getSeries(){
 
 	$d = scandir("catalogo/series");
@@ -475,6 +484,7 @@ function getSeries(){
 
 }
 
+//DEPRECATED //DEPRECATED //DEPRECATED //DEPRECATED //DEPRECATED //DEPRECATED //DEPRECATED //DEPRECATED //DEPRECATED//DEPRECATED //DEPRECATED //DEPRECATED //DEPRECATED //DEPRECATED
 function getCountFilmsSeries($type){
 	
 	$d = scandir("catalogo/".$type);
@@ -495,6 +505,7 @@ function getCountFilmsSeries($type){
 	
 }
 
+//DEPRECATED //DEPRECATED //DEPRECATED //DEPRECATED //DEPRECATED //DEPRECATED //DEPRECATED //DEPRECATED //DEPRECATED//DEPRECATED //DEPRECATED //DEPRECATED //DEPRECATED //DEPRECATED
 function getFilms(){
 	
 	$d = scandir("catalogo/films");
@@ -562,6 +573,7 @@ function getFilms(){
 	return $film;
 }
 
+//DEPRECATED //DEPRECATED //DEPRECATED //DEPRECATED //DEPRECATED //DEPRECATED //DEPRECATED //DEPRECATED //DEPRECATED//DEPRECATED //DEPRECATED //DEPRECATED //DEPRECATED //DEPRECATED
 function getSingleSerie($serieName){
 
 	$path = "catalogo/series/".$serieName.".xml";
@@ -618,6 +630,7 @@ function getSingleSerie($serieName){
 	return $serie;
 }
 
+//DEPRECATED //DEPRECATED //DEPRECATED //DEPRECATED //DEPRECATED //DEPRECATED //DEPRECATED //DEPRECATED //DEPRECATED//DEPRECATED //DEPRECATED //DEPRECATED //DEPRECATED //DEPRECATED
 function getSingleFilm($filmName){
 	
 	$path = "catalogo/films/".$filmName.".xml";
@@ -665,36 +678,43 @@ function getSingleFilm($filmName){
 	return $film;
 }
 
+//DEPRECATED //DEPRECATED //DEPRECATED //DEPRECATED //DEPRECATED //DEPRECATED //DEPRECATED //DEPRECATED //DEPRECATED//DEPRECATED //DEPRECATED //DEPRECATED //DEPRECATED //DEPRECATED
 function replaceParentesis($str){
 	$string = preg_replace("/\([^)]+\)/","",$str);
 	return $string;
 }
 
+//DEPRECATED //DEPRECATED //DEPRECATED //DEPRECATED //DEPRECATED //DEPRECATED //DEPRECATED //DEPRECATED //DEPRECATED//DEPRECATED //DEPRECATED //DEPRECATED //DEPRECATED //DEPRECATED
 function getCoverFilm($filmName){
 	return "http://www.catalogonetflix.es/img/peliculas/cover/".$filmName;
 }
+//DEPRECATED //DEPRECATED //DEPRECATED //DEPRECATED //DEPRECATED //DEPRECATED //DEPRECATED //DEPRECATED //DEPRECATED//DEPRECATED //DEPRECATED //DEPRECATED //DEPRECATED //DEPRECATED
 function getPosterFilm($filmName){
 	return "http://www.catalogonetflix.es/img/peliculas/poster/".$filmName;
 }
+//DEPRECATED //DEPRECATED //DEPRECATED //DEPRECATED //DEPRECATED //DEPRECATED //DEPRECATED //DEPRECATED //DEPRECATED//DEPRECATED //DEPRECATED //DEPRECATED //DEPRECATED //DEPRECATED
 function getBackgroundFilm($filmName){
 	return "http://www.catalogonetflix.es/img/peliculas/background/".$filmName;
 }
-
+//DEPRECATED //DEPRECATED //DEPRECATED //DEPRECATED //DEPRECATED //DEPRECATED //DEPRECATED //DEPRECATED //DEPRECATED//DEPRECATED //DEPRECATED //DEPRECATED //DEPRECATED //DEPRECATED
 function getCoverSerie($filmName){
 	return "http://www.catalogonetflix.es/img/series/cover/".$filmName;
 }
+//DEPRECATED //DEPRECATED //DEPRECATED //DEPRECATED //DEPRECATED //DEPRECATED //DEPRECATED //DEPRECATED //DEPRECATED//DEPRECATED //DEPRECATED //DEPRECATED //DEPRECATED //DEPRECATED
 function getPosterSerie($filmName){
 	return "http://www.catalogonetflix.es/img/series/poster/".$filmName;
 }
+//DEPRECATED //DEPRECATED //DEPRECATED //DEPRECATED //DEPRECATED //DEPRECATED //DEPRECATED //DEPRECATED //DEPRECATED//DEPRECATED //DEPRECATED //DEPRECATED //DEPRECATED //DEPRECATED
 function getBackgroundSerie($filmName){
 	return "http://www.catalogonetflix.es/img/series/background/".$filmName;
 }
-
+//DEPRECATED //DEPRECATED //DEPRECATED //DEPRECATED //DEPRECATED //DEPRECATED //DEPRECATED //DEPRECATED //DEPRECATED//DEPRECATED //DEPRECATED //DEPRECATED //DEPRECATED //DEPRECATED
 function replaceSpaceReal($name){
 
 	return str_replace(" ", "%20", $name);
 }
 
+//DEPRECATED //DEPRECATED //DEPRECATED //DEPRECATED //DEPRECATED //DEPRECATED //DEPRECATED //DEPRECATED //DEPRECATED//DEPRECATED //DEPRECATED //DEPRECATED //DEPRECATED //DEPRECATED
 function replaceSpace($name){
 	
 	$name = str_replace(array(" ", ",", ":", "."), array("-", "__", "_", "--"), $name);
@@ -702,6 +722,7 @@ function replaceSpace($name){
 	return $name;
 }
 
+//DEPRECATED //DEPRECATED //DEPRECATED //DEPRECATED //DEPRECATED //DEPRECATED //DEPRECATED //DEPRECATED //DEPRECATED//DEPRECATED //DEPRECATED //DEPRECATED //DEPRECATED //DEPRECATED
 function replaceDashToSpace($name){
 	
 	$name = str_replace(array("--", "-", "__", "_"), array(".", " ", ",", ""), $name);
@@ -710,6 +731,7 @@ function replaceDashToSpace($name){
 	
 }
 
+//DEPRECATED //DEPRECATED //DEPRECATED //DEPRECATED //DEPRECATED //DEPRECATED //DEPRECATED //DEPRECATED //DEPRECATED//DEPRECATED //DEPRECATED //DEPRECATED //DEPRECATED //DEPRECATED
 function limpiarChars($name){
 	
 	$name = str_replace(array(":"), array(""), $name);
@@ -719,7 +741,7 @@ function limpiarChars($name){
 }
 
 //POSTS
-
+//DEPRECATED //DEPRECATED //DEPRECATED //DEPRECATED //DEPRECATED //DEPRECATED //DEPRECATED //DEPRECATED //DEPRECATED//DEPRECATED //DEPRECATED //DEPRECATED //DEPRECATED //DEPRECATED
 function getLastPosts(){
 	
 	$d = scandir("catalogo/posts");
@@ -745,7 +767,7 @@ function getLastPosts(){
 	return $posts;
 	
 }
-
+//DEPRECATED //DEPRECATED //DEPRECATED //DEPRECATED //DEPRECATED //DEPRECATED //DEPRECATED //DEPRECATED //DEPRECATED//DEPRECATED //DEPRECATED //DEPRECATED //DEPRECATED //DEPRECATED
 function loadSinglePost($fileName){
 	
 	$meses = array("Enero","Febrero","Marzo","Abril","Mayo","Junio","Julio","Agosto","Septiembre","Octubre","Noviembre","Diciembre");
@@ -785,7 +807,7 @@ function loadSinglePost($fileName){
 	return $post;
 	
 }
-
+//DEPRECATED //DEPRECATED //DEPRECATED //DEPRECATED //DEPRECATED //DEPRECATED //DEPRECATED //DEPRECATED //DEPRECATED//DEPRECATED //DEPRECATED //DEPRECATED //DEPRECATED //DEPRECATED
 function updatePost($post){
 	
 // 	connection()->query("INSERT INTO `Posts`(`POS_index`, `POS_date`) VALUES ([value-1],[value-2])");
@@ -826,7 +848,7 @@ function updatePost($post){
 }
 
 // END POSTS
-
+//DEPRECATED //DEPRECATED //DEPRECATED //DEPRECATED //DEPRECATED //DEPRECATED //DEPRECATED //DEPRECATED //DEPRECATED//DEPRECATED //DEPRECATED //DEPRECATED //DEPRECATED //DEPRECATED
 function updatePosts(){
 
 	foreach(getLastPosts() as $post){
@@ -836,7 +858,7 @@ function updatePosts(){
 	}
 
 }
-
+//DEPRECATED //DEPRECATED //DEPRECATED //DEPRECATED //DEPRECATED //DEPRECATED //DEPRECATED //DEPRECATED //DEPRECATED//DEPRECATED //DEPRECATED //DEPRECATED //DEPRECATED //DEPRECATED
 function updateAll(){
 	
 	

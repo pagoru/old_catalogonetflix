@@ -6,7 +6,7 @@
 	<link rel="shortcut icon" type="image/x-icon" href="<?php echo WEB;?>assets/logos/netflix-icon.ico">
 	<script src="https://ajax.googleapis.com/ajax/libs/jquery/2.1.3/jquery.min.js"></script>
 	
-	<meta name="description" content="El cat�logo completo de Netflix Espa�a de forma pública con toda la información sobre las nuevas peliculas y series que se añadirán a netflix.." />
+	<meta name="description" content="El catálogo completo de Netflix España de forma pública con toda la información sobre las nuevas peliculas y series que se añadirán a netflix.." />
 	<meta name="keywords" content="
 	
 		netflix, netflix españa, catalogo netflix, catalogo netflix españa, ver peliculas netflix, peliculas netflix, ver series netflix, series netflix, series, catalogo completo netflix,
@@ -14,17 +14,17 @@
 		
 	"/>
 	
-	<meta property="og:title" content="Catálogo Netflix Espa�a" />
+	<meta property="og:title" content="<?php echo NAME_WEB;?>" />
 	<meta property="og:type" content="website" />
 	<meta property="og:url" content="<?php echo WEB;?>" />
 	<meta property="og:image" content="<?php echo WEB?>assets/logos/catlogonetflix.png" />
 	<meta property="og:locale" content="es_ES" />
 	<meta property="og:site_name" content="Cat�logo Netflix" />
-	<meta property="og:description" content="El catálogo completo de Netflix Espa�a de forma p�blica con toda la información sobre las nuevas peliculas y series que se añadirán a netflix." />
+	<meta property="og:description" content="El cat�logo completo de Netflix Espa�a de forma p�blica con toda la información sobre las nuevas peliculas y series que se añadirán a netflix." />
 	
 	<meta name="viewport" content="width=320, user-scalable=no">
 	
-	<link rel="apple-touch-icon" href="<?php echo WEB;?>assets/logos/touch-icon-iphone.png">
+	<link rel="apple-touch-icon" href="<?php echo WEB;?>assets/touch-icon-iphone.png">
 	
 	<!-- card twitter -->
 	 

@@ -14,6 +14,6 @@ RewriteRule ^test/(.*) test.php?p=$1 [L]
 
 RewriteRule ^404(.*) 404.php [L]
 
-RewriteRule ^actualizacion/(.*) index.php?page=true&params=$1 [L]
+RewriteRule ^index_(.*) index_.php [L]
 
-ErrorDocument 404 http://catalogonetflix.es/404
+RewriteRule ^actualizacion/(.*) index.php?page=true&params=$1 [L]
