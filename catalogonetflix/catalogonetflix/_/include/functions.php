@@ -42,7 +42,7 @@ function getTranslated($original, $es){ //Devuelve si esta disponible la versió
 //FILMS
 function getSimpleFilm($filmName){
 
-	$sn = mysqli_real_escape_string(connection(), $filmName);
+	$sn = mysqli_real_escape_string(connection(), $filmName); // Cambiar a IN.
 	$row = connection()->query('SELECT * FROM `Films` WHERE `FIL_Name`=\''.$sn.'\' OR `FIL_NetflixLink`=\''.$sn.'\' OR `FIL_IMDB`=\''.$sn.'\' OR `FIL_Name_es`=\''.$sn.'\' ')->fetch_assoc();
 	$film = new stdClass();
 
