@@ -1,9 +1,0 @@
-<?xml version="1.0" encoding="UTF-8"?>
-<film>
-	<title></title>
-	<poster></poster>
-	<background></background>
-	<imdb></imdb>
-	<netflix cover="" src="" />
-	<season number="" episodes="" />
-</film>

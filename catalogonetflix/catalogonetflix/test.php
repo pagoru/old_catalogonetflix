@@ -84,51 +84,102 @@ function L_($film){
 	echo $film->NetflixLink;
 }
 
-updateAll();
+// updateAll();
 
 echo $_GET["p"];
 
+print_r(getSerie_2("Breaking Bad"));
+
+/*
+ * // SELECT `SER_NetflixLink`, `SER_IMDB`, `SER_Name`, `SER_Name_es`, `SER_NetflixPublished`, 
+ * `SER_Published`, `SER_Cover`, `SER_Background`, `SER_Poster` FROM `Series` WHERE 1
+ * 
+ * SELECT `SEI_Serie`, `SEI_Plot`, `SEI_Plot_es` FROM `SeriesInfo` WHERE 1
+ * 
+ * SELECT `SEE_Serie`, `SEE_Season`, `SEE_Episodes` FROM `SeriesEpisodes` WHERE 1
+ */
+
+function getSerie_2($serieName){ 
+	
+	$sn = mysqli_real_escape_string(connection(), $serieName);
+	$row = connection()->query('SELECT * FROM `Series` WHERE `SER_Name`=\''.$sn.'\' ')->fetch_assoc();
+	
+	$film = new stdClass();
+	
+	$film->NetflixLink 			= $row['SER_NetflixLink'];
+	$film->IMDB 				= $row['SER_IMDB'];
+	$film->Name 				= $row['SER_Name'];
+	$film->Name_es 				= $row['SER_Name_es'];
+	$film->NetflixPublished 	= $row['SER_NetflixPublished'];
+	$film->Published 			= $row['SER_Published'];
+	$film->Cover 				= $row['SER_Cover'];
+	$film->Background 			= $row['SER_Background'];
+	$film->Poster 				= $row['SER_Poster'];
+	
+	$id = $film->NetflixLink;
+	
+	if(!empty($id)){
+		
+		$row = connection()->query('SELECT * FROM `SeriesInfo` WHERE `SEI_Serie`=\''.$id.'\' ')->fetch_assoc();
+		
+		$film->Plot = $row['SEI_Plot'];
+		$film->Plot_es = $row['SEI_Plot_es'];
+		
+		// Actors
+		$con = connection()->query('SELECT * FROM `SeriesActors` WHERE `SEA_Serie`=\''.$id.'\' ');
+		$i = 0;
+		while($row = $con->fetch_assoc()){
+			
+			$film->Actors[$i] = $row['SEA_Person'];
+			$i++;
+			
+		}
+		
+		//Directors
+		$con = connection()->query('SELECT * FROM `SeriesDirectors` WHERE `SED_Serie`=\''.$id.'\' ');
+		$i = 0;
+		while($row = $con->fetch_assoc()){
+				
+			$film->Directors[$i] = $row['SED_Person'];
+			$i++;
+				
+		}
+		
+		//Writers
+		$con = connection()->query('SELECT * FROM `SeriesWriters` WHERE `SEW_Serie`=\''.$id.'\' ');
+		$i = 0;
+		while($row = $con->fetch_assoc()){
+		
+			$film->Writers[$i] = $row['SEW_Person'];
+			$i++;
+		
+		}
+		
+		//Generes
+		$con = connection()->query('SELECT * FROM `SeriesGeneres` WHERE `SEG_Serie`=\''.$id.'\' ');
+		$i = 0;
+		while($row = $con->fetch_assoc()){
+		
+			$film->Generes[$i] = $row['SEG_Genere'];
+			$i++;
+		
+		}
+		
+		//Seasons
+		$con = connection()->query('SELECT * FROM `SeriesEpisodes` WHERE `SEE_Serie`=\''.$id.'\' ');
+		while($row = $con->fetch_assoc()){
+		
+			$film->Seasons[$row['SEE_Season']] = $row['SEE_Episodes'];
+		
+		}
+		
+	}
+	
+	return $film;
+	
+}
+
+//new functions
+
+
 ?>
-<style>
-.id{
-	width: 64px;
-}
-.date{
-	width: 76px;
-}
-.duration{
-	width: 32px;
-}
-.text{
-	width: 156px;
-}
-input{
-	margin: -2px;
-	margin-bottom: 4px;
-}
-form{
-	margin: 0px;
-	padding: 16px;
-}
-.p0{
-	background-color: rgb(222, 222, 222);
-	padding: 8px;
-}
-.p1{
-	background-color: rgb(194, 192, 192);
-	padding: 8px;
-}
-.person{
-	width: 96px;
-	float: left;
-}
-</style>
-<?php $i = 0;?>
-<?php //foreach (getFilms_() as $film):?>
-	<div class="p<?php echo $i%2;?>">
-		<input class="id" value="<?php echo $film->NetflixLink;?>"/>
-		<input class="text" value="<?php echo $film->Name;?>"/>
-		<input class="text" value="<?php echo $film->Name_es;?>"/>
-	</div>
-	<?php $i++;?>
-<?php //endforeach;?>
