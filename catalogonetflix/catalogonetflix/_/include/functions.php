@@ -28,6 +28,17 @@ function userHistory(){
 	connection()->query("INSERT INTO `UserHistory`(`USR_IP`, `USR_OS`, `USR_Browser`, `USR_Path`) VALUES ('$ip','$os','$browser', '$path')");
 }
 
+function getMonth($m){
+	$months = array("Enero", "Febrero", "Marzo", "Abril", "Mayo", "Junio", "Julio", "Agosto", "Septiembre", "Octubre", "Noviembre", "Diciembre");
+	return $months[$m - 1];
+}
+
+function getDates($date){
+	$d = explode("-", $date);
+	return $d[2]." de ".getMonth($d[1])." de ".$d[0];
+} 
+
+
 function cmpa($b, $a){
 	return strcmp($b->Name, $a->Name);
 }
@@ -37,6 +48,10 @@ function getTranslated($original, $es){ //Devuelve si esta disponible la versió
 		return $es;
 	}
 	return $original;
+}
+
+function getIMDB($imdb){
+	return json_decode(utf8_decode(file_get_contents("http://www.omdbapi.com/?i=".$imdb."&r=json")));
 }
 
 //FILMS
@@ -56,6 +71,8 @@ function getSimpleFilm($filmName){
 	$film->Cover 				= $row['FIL_Cover'];
 	$film->Background 			= $row['FIL_Background'];
 	$film->Poster 				= $row['FIL_Poster'];
+	
+	$film->Rating				= getIMDB($film->IMDB)->imdbRating;
 
 	return $film;
 
@@ -77,7 +94,9 @@ function getFilm($filmName){
 	$film->Cover 				= $row['FIL_Cover'];
 	$film->Background 			= $row['FIL_Background'];
 	$film->Poster 				= $row['FIL_Poster'];
-
+	
+	$film->Rating				= getIMDB($film->IMDB)->imdbRating;
+	
 	$id = $film->NetflixLink;
 
 	if(!empty($id)){
@@ -170,6 +189,8 @@ function getSimpleSerie($serieName){
 	$film->Cover 				= $row['SER_Cover'];
 	$film->Background 			= $row['SER_Background'];
 	$film->Poster 				= $row['SER_Poster'];
+	
+	$film->Rating				= getIMDB($film->IMDB)->imdbRating;
 
 	return $film;
 
@@ -190,6 +211,8 @@ function getSerie($serieName){
 	$film->Cover 				= $row['SER_Cover'];
 	$film->Background 			= $row['SER_Background'];
 	$film->Poster 				= $row['SER_Poster'];
+	
+	$film->Rating				= getIMDB($film->IMDB)->imdbRating;
 
 	$id = $film->NetflixLink;
 

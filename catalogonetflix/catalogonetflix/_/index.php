@@ -10,41 +10,76 @@ include 'include/functions.php';
 	<?php include 'include/header.php';?>
 	<div class="page-inside">
 		<div class="inside">
-			<?php $film = getFilm("28 Dias Despues");?>
+			<?php $film = getSerie("Africa");?>
 			<div class="f-background" style="background-image: url('<?php echo $film->Background;?>')">
 				<div class="f-background-inside">
 					<div class="f-inside">
-						<div class="f-title"><?php echo getTranslated($film->Name, $film->Name_es);?></div>
-						<div><?php echo $film->NetflixPublished;?></div>
-						<div><?php echo $film->Published;?></div>
-						<div><?php echo $film->Duration;?></div>
-						<div><?php echo getTranslated($film->Plot, $film->Plot_es);?></div>
-						<div>
-							<?php foreach ($film->Generes as $g):?>
-								<?php echo $g;?>
+						<div style="margin-bottom: 8px;" class="f-title"><?php echo getTranslated($film->Name, $film->Name_es);?></div>
+						<a class="f-netflix" href="http://www.netflix.com/title/<?php echo $film->NetflixLink;?>"><div>Ver en Netflix</div></a>
+						<div style="margin-bottom: 8px;" class="f-netflix" >Disponible en Netflix desde: <a class="f-date"><?php echo getDates($film->NetflixPublished);?></a></div>
+						<div class="f-stars-up" style="width: <?php echo $film->Rating * 5;?>px;"></div>
+						<div class="f-stars"></div>
+						<div class="f-published"><?php echo getDates($film->Published);?></div>
+						
+						<?php if(!empty($film->Duration)):?>
+						<div class="f-mini"><?php echo $film->Duration;?> min.</div>
+						<?php endif;?>
+						
+						<?php if(!empty($film->Generes)):?>
+						<div class="f-mini">
+							<?php $ge=""; foreach ($film->Generes as $g):?>
+								<?php $ge = $ge.", ".$g;?>
 							<?php endforeach;?>
+							<?php echo substr($ge, 1, strlen($ge));?>
 						</div>
-						<div>
-							<?php foreach ($film->Actors as $a):?>
-								<?php echo $a;?>
+						<?php endif;?>
+						
+						<?php if(!empty($film->Plot)):?>
+						<div class="f-plot"><?php echo $film->Plot; echo getTranslated($film->Plot, $film->Plot_es);?></div>
+						<?php endif;?>
+						
+						<?php if(!empty($film->Directors)):?>
+						<div class="f-mini">
+							<a class="f-mini-c">Dirigido por: </a>
+							<?php $di=""; foreach ($film->Directors as $d):?>
+								<?php $di = $di.", ".$d;?>
 							<?php endforeach;?>
+							<?php echo substr($di, 1, strlen($di));?>
 						</div>
-						<div>
-							<?php foreach ($film->Directors as $d):?>
-								<?php echo $d;?>
+						<?php endif;?>
+						
+						<?php if(!empty($film->Writers)):?>
+						<div class="f-mini">
+							<a class="f-mini-c">Escrito por: </a>
+							<?php $wr=""; foreach ($film->Writers as $w):?>
+								<?php $wr = $wr.", ".$w;?>
 							<?php endforeach;?>
+							<?php echo substr($wr, 1, strlen($wr));?>
 						</div>
-						<div>
-							<?php foreach ($film->Writers as $w):?>
-								<?php echo $w;?>
+						<?php endif;?>
+						
+						<?php if(!empty($film->Actors)):?>
+						<div class="f-mini">
+							<a class="f-mini-c">Protagonizada por: </a>
+							<?php $ac=""; foreach ($film->Actors as $a):?>
+								<?php $ac = $ac.", ".$a;?>
 							<?php endforeach;?>
+							<?php echo substr($ac, 1, strlen($ac));?>
 						</div>
-						<div>
+						<?php endif;?>
+						
+						<?php if(!empty($film->Seasons)):?>
+						<div class="f-mini" style="margin-top: 8px;">
 							<?php $e = 1;?>
 							<?php foreach ($film->Seasons as $s):?>
-								<?php echo $e.":".$s;?>
+								<div>
+									Temporada <?php echo $e;?>:
+									<a class="f-mini-c"><?php echo $s;?> episodios</a>
+								</div>
 							<?php $e++; endforeach;?>
 						</div>
+						<?php endif;?>
+						
 					</div>
 				</div>
 			</div>
